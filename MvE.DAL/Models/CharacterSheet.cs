@@ -7,94 +7,219 @@ namespace MvE.DAL.Models
 {
     public class CharacterSheet
     {
-        private Character _character;
-        private int _id;
-
         
-        public int Id { get { return _id; } }
-                
-        public string Name { get {return _character.Name; } }
+        private int _id;
+        private string _name;
+        private string _race;
+        private string _class;
+        private int _level;
+        private string _alignment;
+        private string _background;
+        private int _proficiencyBonus;
+        private int _speed;
+        private int _initiative;
+        private int _passiveWisdom;
+        private int _maxHitPoints;
+        private int _hitDie;
+        private int _strength;
+        private int _strengthModifier;
+        private int _strengthSave;
+        private int _dexterity;
+        private int _dexterityModifier;
+        private int _dexteritySave;
+        private int _constitution;
+        private int _constitutionModifier;
+        private int _constitutionSave;
+        private int _intelligence;
+        private int _intelligenceModifier;
+        private int _intelligenceSave;
+        private int _wisdom;
+        private int _wisdomModifier;
+        private int _wisdomSave;
+        private int _charisma;
+        private int _charismaModifier;
+        private int _charismaSave;
+        private int _acrobatics;
+        private int _animalHandling;
+        private int _arcana;
+        private int _athletics;
+        private int _deception;
+        private int _history;
+        private int _insight;
+        private int _intimidation;
+        private int _investigation;
+        private int _medicine;
+        private int _nature;
+        private int _perception;
+        private int _performance;
+        private int _persuasion;
+        private int _religion;
+        private int _sleightOfHand;
+        private int _stealth;
+        private int _survival;
 
-        public string Race { get {return _character.Race.Name; } }
+        public int Id { get => _id; set => _id = value; }
 
-        public string Class { get {return _character.Class[0].Name; } }
+        public string Name { get => _name; set => _name = value; }
 
-        public int Level { get {return _character.Level; } }
+        public string Race { get => _race; set => _race = value; }
 
-        public string Background { get {return _character.Background.Name; } }
+        public string Class { get => _class; set => _class = value; }
 
-        public string Alignment { get {return _character.Alignment.ToString(); } }
+        public int Level { get => _level; set => _level = value; }
 
-        public int ProficiencyBonus { get {return _character.ProficiencyBonus; } }
+        public string Background { get => _background; set => _background = value; }
 
-        public int Speed { get {return _character.Speed; } }
+        public string Alignment { get => _alignment; set => _alignment = value; }
 
-        public int Initiative { get {return _character.Initiative; } }
+        public int ProficiencyBonus { get => _proficiencyBonus; set => _proficiencyBonus = value; }
+
+        public int Speed { get => _speed; set => _speed = value; }
+
+        public int Initiative { get => _initiative; set => _initiative = value; }
+
+        public int PassiveWisdom { get => _passiveWisdom; set => _passiveWisdom = value; }
+
+        public int MaxHitPoints { get => _maxHitPoints; set => _maxHitPoints = value; }
+
+        public int HitDie { get => _hitDie; set => _hitDie = value; }
 
         #region abilities
-        public int Strength { get {return _character.Strength.Score; } }
-        public int StrengthModifier { get {return _character.Strength.Modifier; } }
-        public int StrengthSave { get { return _character.Strength.IsProficient ? _character.Strength.Modifier + _character.ProficiencyBonus : _character.Strength.Modifier; } }
+        public int Strength { get => _strength; set => _strength = value; }
+        public int StrengthModifier { get => _strengthModifier; set => _strengthModifier = value; }
+        public int StrengthSave { get => _strengthSave; set => _strengthSave = value; }
 
-        public int Dexterity { get {return _character.Dexterity.Score; } }
-        public int DexterityModifier { get {return _character.Dexterity.Modifier; } }
-        public int DexteritySave { get { return _character.Dexterity.IsProficient ? _character.Dexterity.Modifier + _character.ProficiencyBonus : _character.Dexterity.Modifier; } }
+        public int Dexterity { get => _dexterity; set => _dexterity = value; }
+        public int DexterityModifier { get => _dexterityModifier; set => _dexterityModifier = value; }
+        public int DexteritySave { get => _dexteritySave; set => _dexteritySave = value; }
 
-        public int Constitution { get {return _character.Constitution.Score; } }
-        public int ConstitutionModifier { get {return _character.Constitution.Modifier; } }
-        public int ConstitutionSave { get { return _character.Constitution.IsProficient ? _character.Constitution.Modifier + _character.ProficiencyBonus : _character.Constitution.Modifier; } }
+        public int Constitution { get => _constitution; set => _constitution = value; }
+        public int ConstitutionModifier { get => _constitutionModifier; set => _constitutionModifier = value; }
+        public int ConstitutionSave { get => _constitutionSave; set => _constitutionSave = value; }
 
-        public int Intelligence { get {return _character.Intelligence.Score; } }
-        public int IntelligenceModifier { get {return _character.Intelligence.Modifier; } }
-        public int IntelligenceSave { get { return _character.Intelligence.IsProficient ? _character.Intelligence.Score + _character.ProficiencyBonus : _character.Intelligence.Modifier; } }
+        public int Intelligence { get => _intelligence; set => _intelligence = value; }
+        public int IntelligenceModifier { get => _intelligenceModifier; set => _intelligenceModifier = value; }
+        public int IntelligenceSave { get => _intelligenceSave; set => _intelligenceSave = value; }
 
-        public int Wisdom { get {return _character.Wisdom.Score; } }
-        public int WisdomModifier { get {return _character.Wisdom.Modifier; } }
-        public int WisdomSave { get { return _character.Wisdom.IsProficient ? _character.Wisdom.Modifier + _character.ProficiencyBonus : _character.Wisdom.Modifier; } }
+        public int Wisdom { get => _wisdom; set => _wisdom = value; }
+        public int WisdomModifier { get => _wisdomModifier; set => _wisdomModifier = value; }
+        public int WisdomSave { get => _wisdomSave; set => _wisdomSave = value; }
 
-        public int Charisma { get {return _character.Charisma.Score; } }
-        public int CharismaModifier { get {return _character.Charisma.Modifier; } }
-        public int CharismaSave { get { return _character.Charisma.IsProficient ? _character.Charisma.Modifier + _character.ProficiencyBonus : _character.Charisma.Modifier; } }
+        public int Charisma { get => _charisma; set => _charisma = value; }
+        public int CharismaModifier { get => _charismaModifier; set => _charismaModifier = value; }
+        public int CharismaSave { get => _charismaSave; set => _charismaSave = value; }
         #endregion
 
         #region skills
 
-        public int Acrobatics { get {return _character.Acrobatics.IsProficient ? _character.Acrobatics.Bonus + _character.ProficiencyBonus : _character.Acrobatics.Bonus; } }
-        public int AnimalHandling { get {return _character.AnimalHandling.IsProficient ? _character.AnimalHandling.Bonus + _character.ProficiencyBonus : _character.AnimalHandling.Bonus; } }
-        public int Arcana { get {return _character.Arcana.IsProficient ? _character.Arcana.Bonus + _character.ProficiencyBonus : _character.Arcana.Bonus; } }
-        public int Athletics { get {return _character.Athletics.IsProficient ? _character.Athletics.Bonus + _character.ProficiencyBonus : _character.Athletics.Bonus; } }
-        public int Deception { get {return _character.Deception.IsProficient ? _character.Deception.Bonus + _character.ProficiencyBonus : _character.Deception.Bonus; } }
-        public int History { get {return _character.History.IsProficient ? _character.History.Bonus + _character.ProficiencyBonus : _character.History.Bonus; } }
-        public int Insight { get {return _character.Insight.IsProficient ? _character.Insight.Bonus + _character.ProficiencyBonus : _character.Insight.Bonus; } }
-        public int Intimidation { get {return _character.Intimidation.IsProficient ? _character.Intimidation.Bonus + _character.ProficiencyBonus : _character.Intimidation.Bonus; } }
-        public int Investigation { get {return _character.Investigation.IsProficient ? _character.Investigation.Bonus + _character.ProficiencyBonus : _character.Investigation.Bonus; } }
-        public int Medicine { get {return _character.Medicine.IsProficient ? _character.Medicine.Bonus + _character.ProficiencyBonus : _character.Medicine.Bonus; } }
-        public int Nature { get {return _character.Nature.IsProficient ? _character.Nature.Bonus + _character.ProficiencyBonus : _character.Nature.Bonus; } }
-        public int Perception { get {return _character.Perception.IsProficient ? _character.Perception.Bonus + _character.ProficiencyBonus : _character.Perception.Bonus; } }
-        public int Performance { get {return _character.Performance.IsProficient ? _character.Performance.Bonus + _character.ProficiencyBonus : _character.Performance.Bonus; } }
-        public int Persuasion { get {return _character.Persuasion.IsProficient ? _character.Persuasion.Bonus + _character.ProficiencyBonus : _character.Persuasion.Bonus; } }
-        public int Religion { get {return _character.Religion.IsProficient ? _character.Religion.Bonus + _character.ProficiencyBonus : _character.Religion.Bonus; } }
-        public int SleightOfHand { get {return _character.SleightOfHand.IsProficient ? _character.SleightOfHand.Bonus + _character.ProficiencyBonus : _character.SleightOfHand.Bonus; } }
-        public int Stealth { get {return _character.Stealth.IsProficient ? _character.Stealth.Bonus + _character.ProficiencyBonus : _character.Stealth.Bonus; } }
-        public int Survival { get {return _character.Survival.IsProficient ? _character.Survival.Bonus + _character.ProficiencyBonus : _character.Survival.Bonus; } }
+        public int Acrobatics { get => _acrobatics; set => _acrobatics = value; }
+        public int AnimalHandling { get => _animalHandling; set => _animalHandling = value; }
+        public int Arcana { get => _arcana; set => _arcana = value; }
+        public int Athletics { get => _athletics; set => _athletics = value; }
+        public int Deception { get => _deception; set => _deception = value; }
+        public int History { get => _history; set => _history = value; }
+        public int Insight { get => _insight; set => _insight = value; }
+        public int Intimidation { get => _intimidation; set => _intimidation = value; }
+        public int Investigation { get => _investigation; set => _investigation = value; }
+        public int Medicine { get => _medicine; set => _medicine = value; }
+        public int Nature { get => _nature; set => _nature = value; }
+        public int Perception { get => _perception; set => _perception = value; }
+        public int Performance { get => _performance; set => _performance = value; }
+        public int Persuasion { get => _persuasion; set => _persuasion = value; }
+        public int Religion { get => _religion; set => _religion = value; }
+        public int SleightOfHand { get => _sleightOfHand; set => _sleightOfHand = value; }
+        public int Stealth { get => _stealth; set => _stealth = value; }
+        public int Survival { get => _survival; set => _survival = value; }
 
         #endregion
 
-        public int PassiveWisdom { get {return _character.PassiveWisdom; } }
-
-        public int MaxHitPoints { get {return _character.MaxHitPoint; } }
-
-        public int HitDie { get {return _character.HitDice[0]; } }
 
         public CharacterSheet(Character character)
         {
-            _character = character;
+
             _id = Guid.NewGuid().GetHashCode();
+            
+
+            _name = character.Name;
+            _race = character.Race.Name;
+
+            _class = character.Class[0].Name;
+
+            _level = character.Level;
+
+            _background = character.Background.Name;
+
+            _alignment = character.Alignment.ToString();
+
+            _proficiencyBonus = character.ProficiencyBonus;
+
+            _speed = character.Speed;
+
+            _initiative = character.Initiative;
+
+            _passiveWisdom = character.PassiveWisdom;
+
+            _maxHitPoints = character.MaxHitPoint;
+
+            _hitDie = character.HitDice[0];
+
+            #region abilities
+
+            _strength = character.Strength.Score;
+            _strengthModifier = character.Strength.Modifier;
+            _strengthSave = character.Strength.IsProficient ? character.Strength.Modifier + character.ProficiencyBonus : character.Strength.Modifier;
+
+            _dexterity = character.Dexterity.Score;
+            _dexterityModifier = character.Dexterity.Modifier;
+            _dexteritySave = character.Dexterity.IsProficient ? character.Dexterity.Modifier + character.ProficiencyBonus : character.Dexterity.Modifier;
+
+            _constitution = character.Constitution.Score;
+            _constitutionModifier = character.Constitution.Modifier;
+            _constitutionSave = character.Constitution.IsProficient ? character.Constitution.Modifier + character.ProficiencyBonus : character.Constitution.Modifier;
+
+            _intelligence = character.Intelligence.Score;
+            _intelligenceModifier = character.Intelligence.Modifier;
+            _intelligenceSave = character.Intelligence.IsProficient ? character.Intelligence.Score + character.ProficiencyBonus : character.Intelligence.Modifier;
+
+            _wisdom = character.Wisdom.Score;
+            _wisdomModifier = character.Wisdom.Modifier;
+            _wisdomSave = character.Wisdom.IsProficient ? character.Wisdom.Modifier + character.ProficiencyBonus : character.Wisdom.Modifier;
+
+            _charisma = character.Charisma.Score;
+            _charismaModifier = character.Charisma.Modifier;
+            _charismaSave = character.Charisma.IsProficient ? character.Charisma.Modifier + character.ProficiencyBonus : character.Charisma.Modifier;
+
+            #endregion
+
+            #region skills
+
+            _acrobatics = character.Acrobatics.IsProficient ? character.Acrobatics.Bonus + character.ProficiencyBonus : character.Acrobatics.Bonus;
+            _animalHandling = character.AnimalHandling.IsProficient ? character.AnimalHandling.Bonus + character.ProficiencyBonus : character.AnimalHandling.Bonus;
+            _arcana = character.Arcana.IsProficient ? character.Arcana.Bonus + character.ProficiencyBonus : character.Arcana.Bonus;
+            _athletics = character.Athletics.IsProficient ? character.Athletics.Bonus + character.ProficiencyBonus : character.Athletics.Bonus;
+            _deception = character.Deception.IsProficient ? character.Deception.Bonus + character.ProficiencyBonus : character.Deception.Bonus;
+            _history = character.History.IsProficient ? character.History.Bonus + character.ProficiencyBonus : character.History.Bonus;
+            _insight = character.Insight.IsProficient ? character.Insight.Bonus + character.ProficiencyBonus : character.Insight.Bonus;
+            _intimidation = character.Intimidation.IsProficient ? character.Intimidation.Bonus + character.ProficiencyBonus : character.Intimidation.Bonus;
+            _investigation = character.Investigation.IsProficient ? character.Investigation.Bonus + character.ProficiencyBonus : character.Investigation.Bonus;
+            _medicine = character.Medicine.IsProficient ? character.Medicine.Bonus + character.ProficiencyBonus : character.Medicine.Bonus;
+            _nature = character.Nature.IsProficient ? character.Nature.Bonus + character.ProficiencyBonus : character.Nature.Bonus;
+            _perception = character.Perception.IsProficient ? character.Perception.Bonus + character.ProficiencyBonus : character.Perception.Bonus;
+            _performance = character.Performance.IsProficient ? character.Performance.Bonus + character.ProficiencyBonus : character.Performance.Bonus;
+            _persuasion = character.Persuasion.IsProficient ? character.Persuasion.Bonus + character.ProficiencyBonus : character.Persuasion.Bonus;
+            _religion = character.Religion.IsProficient ? character.Religion.Bonus + character.ProficiencyBonus : character.Religion.Bonus;
+            _sleightOfHand = character.SleightOfHand.IsProficient ? character.SleightOfHand.Bonus + character.ProficiencyBonus : character.SleightOfHand.Bonus;
+            _stealth = character.Stealth.IsProficient ? character.Stealth.Bonus + character.ProficiencyBonus : character.Stealth.Bonus;
+            _survival = character.Survival.IsProficient ? character.Survival.Bonus + character.ProficiencyBonus : character.Survival.Bonus;
+
+            #endregion
         }
 
-        public CharacterSheet()
-        {
-            _id = Guid.NewGuid().GetHashCode();
-        }
+        public CharacterSheet() { _id = Guid.NewGuid().GetHashCode(); }
     }
 }
+
+
+
+
+
