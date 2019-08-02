@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ConsoleTables" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MvE.BLL\MvE.BLL.csproj" />
+    <ProjectReference Include="..\MvE.DAL\MvE.DAL.csproj" />
+    <ProjectReference Include="..\MvE.UI\MvE.UI.csproj" />
+    <ProjectReference Include="..\MvE.UnitTests\MvE.UnitTests.csproj" />
+  </ItemGroup>
+
+</Project>
