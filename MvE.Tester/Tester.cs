@@ -24,69 +24,365 @@ namespace MvE.Tester
             Character MarvinTheHumanBard = new Character("Marvin", abilityPoints_SDCIWC, human, bard, EAlignment.neutralGood, sage);
             CharacterSheet marvinOld = new CharacterSheet(MarvinTheHumanBard);
 
+            #region CharSheet
+                        
+            #region race
+            Console.WriteLine("1. Create your race");
+            Console.WriteLine("Name of the race?");
+            string raceName = Console.ReadLine();
+            Console.WriteLine("Speed of the race?");
+            int raceSpeed = int.Parse(Console.ReadLine());
+            Console.WriteLine("Size of the race?");
+            char raceSize = (char)Console.Read();
+            Console.WriteLine("Select ability bonuses, every selection provides +1 to selected ability.");
+            EAbilities[] selectedAbilities = EAbilitiesArrayCreator();
+            Race customRace = new Race(raceName, raceSpeed, selectedAbilities, raceSize);
+            #endregion
+            #region class
+            Console.WriteLine("2. Create your class");
+            Console.WriteLine("Name of the class?");
+            string className = Console.ReadLine();
+            Console.WriteLine("What is you hit die?");
+            int customHitDie = int.Parse(Console.ReadLine());
+            Console.WriteLine("Choose your primary abilities.");
+            EAbilities[] customPrimaryAbilities = EAbilitiesArrayCreator();
+            Console.WriteLine("Choose saving throw proficiencies for your class.");
+            EAbilities[] customSaves = EAbilitiesArrayCreator();
+            Console.WriteLine("Choose skill poficiencies for your class.");
+            ESkills[] customProficiency = ESkillsArrayCreator();
+            Class customClass = new Class(className, customHitDie, customPrimaryAbilities, customSaves, customProficiency);
+            #endregion
+            #region background
+            Console.WriteLine("2. Create your background");
+            Console.WriteLine("Name of the background?");
+            string backgroundName = Console.ReadLine();
+            Console.WriteLine("Choose skill poficiencies for your background.");
+            ESkills[] customBackgroundProficiency = ESkillsArrayCreator();
+            Background customBackground = new Background(backgroundName, customBackgroundProficiency);
+            #endregion
+            Console.WriteLine("3. Choose your personal details");
+            Console.WriteLine("What is your character's name?");
+            string customCharName = Console.ReadLine();
+            #region abilityPoints
+            int[] customAbilityPoints = abilityPointsCreator_SDCIWC();
+            #endregion
+            EAlignment customAlignment = AlignmentChooser();
+            CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName,customAbilityPoints,customRace,customClass,customAlignment, customBackground));
+
+            #endregion
+
+            using (var db = new DBContext())
+            {
+                db.CharacterSheets.Add(customCharSheet);
+            }
+
             using (var dbcont = new DBContext())
             {
 
                 CharacterSheet[] characterSheets = new CharacterSheet[1];
                 foreach (CharacterSheet sheet in dbcont.CharacterSheets)
                 {
-                    characterSheets[0] = sheet;
+                    var table = new ConsoleTable("name", "value", "value2", "value3");
+                    table.AddRow("Id", "───────────────", "──────────────>", sheet.Id)
+                        .AddRow("CharName", "───────────────", "──────────────>", sheet.Name)
+                        .AddRow("Race", "───────────────", "──────────────>", sheet.Race)
+                        .AddRow("Class", "───────────────", "──────────────>", sheet.Class)
+                        .AddRow("Background", "───────────────", "──────────────>", sheet.Background)
+                        .AddRow("Alignment", "───────────────", "──────────────>", sheet.Alignment)
+                        .AddRow("Level", "───────────────", "──────────────>", sheet.Level)
+                        .AddRow("Initiative", "───────────────", "──────────────>", sheet.Initiative)
+                        .AddRow("Speed", "───────────────", "──────────────>", sheet.Speed)
+                        .AddRow("Proficiency Bonus", "───────────────", "──────────────>", sheet.ProficiencyBonus)
+                        .AddRow("Max Hit Points", "───────────────", "──────────────>", sheet.MaxHitPoints)
+                        .AddRow("Hit Die", "───────────────", "──────────────>", sheet.HitDie)
+                        .AddRow("Passive Wisdom", "───────────────", "──────────────>", sheet.PassiveWisdom)
+                        .AddRow("---------------", "---------------", "---------------", "---------------")
+                        .AddRow("Str", sheet.Strength, sheet.StrengthModifier, sheet.StrengthSave)
+                        .AddRow("└──────────────", "Athletics", "──────────────>", sheet.Athletics)
+                        .AddRow("---------------", "---------------", "---------------", "---------------")
+                        .AddRow("Dex", sheet.Dexterity, sheet.DexterityModifier, sheet.DexteritySave)
+                        .AddRow("├──────────────", "Acrobatics", "──────────────>", sheet.Acrobatics)
+                        .AddRow("├──────────────", "Sleight Of Hand", "──────────────>", sheet.SleightOfHand)
+                        .AddRow("└──────────────", "Stealth", "──────────────>", sheet.Stealth)
+                        .AddRow("---------------", "---------------", "---------------", "---------------")
+                        .AddRow("Con", sheet.Constitution, sheet.ConstitutionModifier, sheet.ConstitutionSave)
+                        .AddRow("---------------", "---------------", "---------------", "---------------")
+                        .AddRow("Int", sheet.Intelligence, sheet.IntelligenceModifier, sheet.IntelligenceSave)
+                        .AddRow("├──────────────", "Arcana", "──────────────>", sheet.Arcana)
+                        .AddRow("├──────────────", "History", "──────────────>", sheet.History)
+                        .AddRow("├──────────────", "Investigation", "──────────────>", sheet.Investigation)
+                        .AddRow("├──────────────", "Nature", "──────────────>", sheet.Nature)
+                        .AddRow("└──────────────", "Religion", "──────────────>", sheet.Religion)
+                        .AddRow("---------------", "---------------", "---------------", "---------------")
+                        .AddRow("Wis", sheet.Wisdom, sheet.WisdomModifier, sheet.WisdomSave)
+                        .AddRow("├──────────────", "Animal Handling", "──────────────>", sheet.AnimalHandling)
+                        .AddRow("├──────────────", "Insight", "──────────────>", sheet.Insight)
+                        .AddRow("├──────────────", "Medicine", "──────────────>", sheet.Medicine)
+                        .AddRow("├──────────────", "Perception", "──────────────>", sheet.Perception)
+                        .AddRow("└──────────────", "Survival", "──────────────>", sheet.Survival)
+                        .AddRow("---------------", "---------------", "---------------", "---------------")
+                        .AddRow("Cha", sheet.Charisma, sheet.CharismaModifier, sheet.CharismaSave)
+                        .AddRow("├──────────────", "Deception", "──────────────>", sheet.Deception)
+                        .AddRow("├──────────────", "Intimidation", "──────────────>", sheet.Intimidation)
+                        .AddRow("├──────────────", "Performance", "──────────────>", sheet.Performance)
+                        .AddRow("└──────────────", "Persuasion", "──────────────>", sheet.Persuasion);
+
+
+                    table.Configure(t => t.NumberAlignment = Alignment.Right).Write(Format.MarkDown);
+                    Console.WriteLine(); Console.WriteLine(); Console.WriteLine(); Console.WriteLine();
                 }
 
-                CharacterSheet marvin = characterSheets[0];
+
 
                 //table
-                var table = new ConsoleTable("name", "value", "value2", "value3");
-                table.AddRow("Id", "───────────────", "──────────────>", marvin.Id)
-                    .AddRow("CharName", "───────────────", "──────────────>", marvin.Name)
-                    .AddRow("Race", "───────────────", "──────────────>", marvin.Race)
-                    .AddRow("Class", "───────────────", "──────────────>", marvin.Class)
-                    .AddRow("Background", "───────────────", "──────────────>", marvin.Background)
-                    .AddRow("Alignment", "───────────────", "──────────────>", marvin.Alignment)
-                    .AddRow("Level", "───────────────", "──────────────>", marvin.Level)
-                    .AddRow("Initiative", "───────────────", "──────────────>", marvin.Initiative)
-                    .AddRow("Speed", "───────────────", "──────────────>", marvin.Speed)
-                    .AddRow("Proficiency Bonus", "───────────────", "──────────────>", marvin.ProficiencyBonus)
-                    .AddRow("Max Hit Points", "───────────────", "──────────────>", marvin.MaxHitPoints)
-                    .AddRow("Hit Die", "───────────────", "──────────────>", marvin.HitDie)
-                    .AddRow("Passive Wisdom", "───────────────", "──────────────>", marvin.PassiveWisdom)
-                    .AddRow("---------------", "---------------", "---------------", "---------------")
-                    .AddRow("Str", marvin.Strength, marvin.StrengthModifier, marvin.StrengthSave)
-                    .AddRow("└──────────────", "Athletics", "──────────────>", marvin.Athletics)
-                    .AddRow("---------------", "---------------", "---------------", "---------------")
-                    .AddRow("Dex", marvin.Dexterity, marvin.DexterityModifier, marvin.DexteritySave)
-                    .AddRow("├──────────────", "Acrobatics", "──────────────>", marvin.Acrobatics)
-                    .AddRow("├──────────────", "Sleight Of Hand", "──────────────>", marvin.SleightOfHand)
-                    .AddRow("└──────────────", "Stealth", "──────────────>", marvin.Stealth)
-                    .AddRow("---------------", "---------------", "---------------", "---------------")
-                    .AddRow("Con", marvin.Constitution, marvin.ConstitutionModifier, marvin.ConstitutionSave)
-                    .AddRow("---------------", "---------------", "---------------", "---------------")
-                    .AddRow("Int", marvin.Intelligence, marvin.IntelligenceModifier, marvin.IntelligenceSave)
-                    .AddRow("├──────────────", "Arcana", "──────────────>", marvin.Arcana)
-                    .AddRow("├──────────────", "History", "──────────────>", marvin.History)
-                    .AddRow("├──────────────", "Investigation", "──────────────>", marvin.Investigation)
-                    .AddRow("├──────────────", "Nature", "──────────────>", marvin.Nature)
-                    .AddRow("└──────────────", "Religion", "──────────────>", marvin.Religion)
-                    .AddRow("---------------", "---------------", "---------------", "---------------")
-                    .AddRow("Wis", marvin.Wisdom, marvin.WisdomModifier, marvin.WisdomSave)
-                    .AddRow("├──────────────", "Animal Handling", "──────────────>", marvin.AnimalHandling)
-                    .AddRow("├──────────────", "Insight", "──────────────>", marvin.Insight)
-                    .AddRow("├──────────────", "Medicine", "──────────────>", marvin.Medicine)
-                    .AddRow("├──────────────", "Perception", "──────────────>", marvin.Perception)
-                    .AddRow("└──────────────", "Survival", "──────────────>", marvin.Survival)
-                    .AddRow("---------------", "---------------", "---------------", "---------------")
-                    .AddRow("Cha", marvin.Charisma, marvin.CharismaModifier, marvin.CharismaSave)
-                    .AddRow("├──────────────", "Deception", "──────────────>", marvin.Deception)
-                    .AddRow("├──────────────", "Intimidation", "──────────────>", marvin.Intimidation)
-                    .AddRow("├──────────────", "Performance", "──────────────>", marvin.Performance)
-                    .AddRow("└──────────────", "Persuasion", "──────────────>", marvin.Persuasion);
 
-
-                table.Configure(t => t.NumberAlignment = Alignment.Right).Write(Format.MarkDown);
-                Console.WriteLine();
 
                 Console.Write("Press any key to continue...");
                 Console.ReadKey(true);
+            }
+        }
+
+        public static EAbilities[] EAbilitiesArrayCreator()
+        {
+            bool isDone = false;
+            EAbilities[] selectedAbilities = new EAbilities[0];
+
+                Console.WriteLine("Choose ability type to add.");
+                Console.WriteLine("1) Strength");
+                Console.WriteLine("2) Dexterity");
+                Console.WriteLine("3) Constitution");
+                Console.WriteLine("4) Intelligence");
+                Console.WriteLine("5) Wisdom");
+                Console.WriteLine("6) Charisma");
+                Console.WriteLine("7) Done.");
+                
+            while (!isDone)
+            {
+                switch (int.Parse(Console.ReadLine()))
+                {
+                    case 1:
+                        Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
+                        selectedAbilities[selectedAbilities.Length - 1] = EAbilities.Strength;
+                        Console.WriteLine("Strength added!");
+                        break;
+                    case 2:
+                        Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
+                        selectedAbilities[selectedAbilities.Length - 1] = EAbilities.Dexterity;
+                        Console.WriteLine("Dexterity added!");
+                        break;
+                    case 3:
+                        Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
+                        selectedAbilities[selectedAbilities.Length - 1] = EAbilities.Constitution;
+                        Console.WriteLine("Constitution added!");
+                        break;
+                    case 4:
+                        Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
+                        selectedAbilities[selectedAbilities.Length - 1] = EAbilities.Intelligence;
+                        Console.WriteLine("Intelligence added!");
+                        break;
+                    case 5:
+                        Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
+                        selectedAbilities[selectedAbilities.Length - 1] = EAbilities.Wisdom;
+                        Console.WriteLine("Wisdom added!");
+                        break;
+                    case 6:
+                        Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
+                        selectedAbilities[selectedAbilities.Length - 1] = EAbilities.Charisma;
+                        Console.WriteLine("Charisma added!");
+                        break;
+                    case 7:
+                        isDone = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return selectedAbilities;
+        }
+        public static ESkills[] ESkillsArrayCreator()
+        {
+            bool isDone = false;
+            ESkills[] selectedSkills = new ESkills[0];
+
+                Console.WriteLine("Choose skills type to add.");
+                Console.WriteLine("1) Athletics");
+                Console.WriteLine("2) Acrobatics");
+                Console.WriteLine("3) Sleight Of Hand");
+                Console.WriteLine("4) Stealth");
+                Console.WriteLine("5) Arcana");
+                Console.WriteLine("6) History");
+                Console.WriteLine("7) Investigation");
+                Console.WriteLine("8) Nature");
+                Console.WriteLine("9) Religion");
+                Console.WriteLine("10) Animal Handling");
+                Console.WriteLine("11) Insight");
+                Console.WriteLine("12) Medicine");
+                Console.WriteLine("13) Perception");
+                Console.WriteLine("14) Survival");
+                Console.WriteLine("15) Deception");
+                Console.WriteLine("16) Intimidation");
+                Console.WriteLine("17) Performance");
+                Console.WriteLine("18) Persuasion");
+                Console.WriteLine("19) Done.");
+                
+            while (!isDone)
+            {
+                int selection = int.Parse(Console.ReadLine());
+                switch (selection)
+                {
+                    case 1:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Athletics;
+                        Console.WriteLine("Athletics added!");
+                        break;
+                    case 2:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Acrobatics;
+                        Console.WriteLine("Acrobatics added!");
+                        break;
+                    case 3:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.sleightOfHand;
+                        Console.WriteLine("Sleight Of Hand added!");
+                        break;
+                    case 4:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Stealth;
+                        Console.WriteLine("Stealth added!");
+                        break;
+                    case 5:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Arcana;
+                        Console.WriteLine("Arcana added!");
+                        break;
+                    case 6:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.History;
+                        Console.WriteLine("History added!");
+                        break;
+                    case 7:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Investigation;
+                        Console.WriteLine("Investigation added!");
+                        break;
+                    case 8:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Nature;
+                        Console.WriteLine("Nature added!");
+                        break;
+                    case 9:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Religion;
+                        Console.WriteLine("Religion added!");
+                        break;
+                    case 10:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.animalHandling;
+                        Console.WriteLine("Animal Handling added!");
+                        break;
+                    case 11:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Insight;
+                        Console.WriteLine("Insight added!");
+                        break;
+                    case 12:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Medicine;
+                        Console.WriteLine("Medicine added!");
+                        break;
+                    case 13:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Perception;
+                        Console.WriteLine("Perception added!");
+                        break;
+                    case 14:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Survival;
+                        Console.WriteLine("Survival added!");
+                        break;
+                    case 15:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Deception;
+                        Console.WriteLine("Deception added!");
+                        break;
+                    case 16:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Intimidation;
+                        Console.WriteLine("Intimidation added!");
+                        break;
+                    case 17:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Performance;
+                        Console.WriteLine("Performance added!");
+                        break;
+                    case 18:
+                        Array.Resize(ref selectedSkills, selectedSkills.Length + 1);
+                        selectedSkills[selectedSkills.Length - 1] = ESkills.Persuasion;
+                        Console.WriteLine("Persuasion added!");
+                        break;
+                    case 19:
+                        isDone = true;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            return selectedSkills;
+        }
+        public static int[] abilityPointsCreator_SDCIWC()
+        {
+            int[] abilityPoints_SDCIWC = new int[6];
+            Console.WriteLine("What is your Strength score");
+            abilityPoints_SDCIWC[0] = int.Parse(Console.ReadLine());
+            Console.WriteLine("What is your Dexterity score");
+            abilityPoints_SDCIWC[1] = int.Parse(Console.ReadLine());
+            Console.WriteLine("What is your Constitution score");
+            abilityPoints_SDCIWC[2] = int.Parse(Console.ReadLine());
+            Console.WriteLine("What is your Intelligence score");
+            abilityPoints_SDCIWC[3] = int.Parse(Console.ReadLine());
+            Console.WriteLine("What is your Wisdom score");
+            abilityPoints_SDCIWC[4] = int.Parse(Console.ReadLine());
+            Console.WriteLine("What is your Charisma score");
+            abilityPoints_SDCIWC[5] = int.Parse(Console.ReadLine());
+
+            return abilityPoints_SDCIWC;
+        }
+        public static EAlignment AlignmentChooser() {
+            Console.WriteLine("What is your alignmet?");
+            Console.WriteLine("1) "+EAlignment.lawfulGood.ToString());
+            Console.WriteLine("2) "+EAlignment.neutralGood.ToString());
+            Console.WriteLine("3) " + EAlignment.chaoticGood.ToString());
+            Console.WriteLine("4) " + EAlignment.lawfulNeutral.ToString());
+            Console.WriteLine("5) " + EAlignment.trueNeutral.ToString());
+            Console.WriteLine("6) " + EAlignment.chaoticNeutral.ToString());
+            Console.WriteLine("7) " + EAlignment.lawfulEvil.ToString());
+            Console.WriteLine("8) " + EAlignment.neutralEvil.ToString());
+            Console.WriteLine("9) " + EAlignment.chaoticEvil.ToString());
+            int selection = Console.Read();
+
+            switch (selection)
+            {
+                case 1:
+                    return EAlignment.lawfulGood;                    
+                case 2:
+                    return EAlignment.neutralGood;                    
+                case 3:
+                    return EAlignment.chaoticGood;                    
+                case 4:
+                    return EAlignment.lawfulNeutral;                    
+                case 5:
+                    return EAlignment.trueNeutral;                    
+                case 6:
+                    return EAlignment.chaoticNeutral;                    
+                case 7:
+                    return EAlignment.lawfulEvil;                    
+                case 8:
+                    return EAlignment.neutralEvil;                    
+                case 9:
+                    return EAlignment.chaoticEvil;                    
+                default:
+                    return EAlignment.trueNeutral;                    
             }
         }
     }
