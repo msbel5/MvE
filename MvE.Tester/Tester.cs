@@ -3,7 +3,9 @@ using MvE.DAL.Data;
 using MvE.DAL.Models;
 using MvE.DAL.Models.Enums;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace MvE.Tester
@@ -12,87 +14,18 @@ namespace MvE.Tester
     {
         static void Main(string[] args)
         {
-            
-
-            #region Custom Creation
-
-            EAbilities[] abilities = new EAbilities[]
-                { EAbilities.Strength, EAbilities.Dexterity, EAbilities.Constitution, EAbilities.Intelligence, EAbilities.Wisdom, EAbilities.Charisma };
-            Race human = new Race("Human", 30, abilities, 'm');
-            EAbilities[] primaryAbilities = new EAbilities[] { EAbilities.Charisma };
-            EAbilities[] saves = new EAbilities[] { EAbilities.Dexterity, EAbilities.Charisma };
-            ESkills[] classProficency = new ESkills[] { ESkills.Deception, ESkills.Persuasion, ESkills.Performance };
-            Class bard = new Class("Bard", 8, primaryAbilities, saves, classProficency);
-            Background sage = new Background("Sage", new ESkills[] { ESkills.Arcana, ESkills.History });
-            int[] abilityPoints_SDCIWC = new int[6] { 14, 14, 10, 17, 15, 16 };
-            Character MarvinTheHumanBard = new Character("Marvin", abilityPoints_SDCIWC, human, bard, EAlignment.neutralGood, sage);
-            CharacterSheet marvinOld = new CharacterSheet(MarvinTheHumanBard);
-
-            #region CharSheet
-
-            #region race
-            Console.WriteLine("1. Create your race");
-            Console.WriteLine("Name of the race?");
-            string raceName = Console.ReadLine();
-            Console.WriteLine("Speed of the race?");
-            int raceSpeed = int.Parse(Console.ReadLine());
-            Console.WriteLine("Size of the race?");
-            char raceSize = (char)Console.Read();
-            Console.WriteLine("Select ability bonuses, every selection provides +1 to selected ability.");
-            EAbilities[] selectedAbilities = AbilitiesArrayCreator();
-            Race customRace = new Race(raceName, raceSpeed, selectedAbilities, raceSize);
-            #endregion
-            #region class
-            Console.WriteLine("2. Create your class");
-            Console.WriteLine("Name of the class?");
-            string className = Console.ReadLine();
-            Console.WriteLine("What is you hit die?");
-            int customHitDie = int.Parse(Console.ReadLine());
-            Console.WriteLine("Choose your primary abilities.");
-            EAbilities[] customPrimaryAbilities = AbilitiesArrayCreator();
-            Console.WriteLine("Choose saving throw proficiencies for your class.");
-            EAbilities[] customSaves = AbilitiesArrayCreator();
-            Console.WriteLine("Choose skill poficiencies for your class.");
-            ESkills[] customProficiency = ESkillsArrayCreator();
-            Class customClass = new Class(className, customHitDie, customPrimaryAbilities, customSaves, customProficiency);
-            #endregion
-            #region background
-            Console.WriteLine("2. Create your background");
-            Console.WriteLine("Name of the background?");
-            string backgroundName = Console.ReadLine();
-            Console.WriteLine("Choose skill poficiencies for your background.");
-            ESkills[] customBackgroundProficiency = ESkillsArrayCreator();
-            Background customBackground = new Background(backgroundName, customBackgroundProficiency);
-            #endregion
-            Console.WriteLine("3. Choose your personal details");
-            Console.WriteLine("What is your character's name?");
-            string customCharName = Console.ReadLine();
-            #region abilityPoints
-            int[] customAbilityPoints = AbilityPointsCreator_SDCIWC();
-            #endregion
-            EAlignment customAlignment = AlignmentChooser();
-            CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName, customAbilityPoints, customRace, customClass, customAlignment, customBackground));
-
-            #endregion
-
-            using (var db = new DBContext())
+            Console.WriteLine("Do you want to create a new character?");
+            var input = Console.ReadKey().KeyChar;
+            if (input == 'y')
             {
-                db.CharacterSheets.Add(customCharSheet);
-                var count = db.SaveChanges();
-
-                Console.WriteLine("{0} character sheet/s have been added.",count);
+                Console.WriteLine();
+                SheetCreator();
             }
-
-
-            #endregion
-
-
-            
 
             using (var dbcont = new DBContext())
             {
+                if (dbcont.CharacterSheets.Count() == 0) { Console.WriteLine("No character have been found!"); }
 
-                CharacterSheet[] characterSheets = new CharacterSheet[1];
                 foreach (CharacterSheet sheet in dbcont.CharacterSheets)
                 {
                     var table = new ConsoleTable("name", "value", "value2", "value3");
@@ -142,20 +75,71 @@ namespace MvE.Tester
 
 
                     table.Configure(t => t.NumberAlignment = Alignment.Right).Write(Format.MarkDown);
-                    Console.WriteLine(); Console.WriteLine(); Console.WriteLine(); Console.WriteLine();
+                    Console.WriteLine(); Console.WriteLine("Press any key to show next sheet..."); Console.WriteLine(); Console.ReadKey(true);
                 }
-
-
-
-                //table
-
-
                 Console.Write("Press any key to continue...");
                 Console.ReadKey(true);
             }
         }
 
         #region Methods
+
+        public static void SheetCreator()
+        {
+            #region Personal Details
+            Console.WriteLine("1. Choose your personal details");
+            Console.WriteLine("What is your character's name?");
+            string customCharName = Console.ReadLine();
+            int[] customAbilityPoints = AbilityPointsCreator_SDCIWC();
+            EAlignment customAlignment = AlignmentChooser();
+            #endregion
+
+            #region race
+            Console.WriteLine("2. Create your race");
+            Console.WriteLine("Name of the race?");
+            string raceName = Console.ReadLine();
+            Console.WriteLine("Speed of the race?");
+            int raceSpeed = int.Parse(Console.ReadLine());
+            Console.WriteLine("Size of the race?");
+            char raceSize = (char)Console.Read();
+            Console.WriteLine("Select ability bonuses, every selection provides +1 to selected ability.");
+            EAbilities[] selectedAbilities = AbilitiesArrayCreator();
+            Race customRace = new Race(raceName, raceSpeed, selectedAbilities, raceSize);
+            #endregion
+
+            #region class
+            Console.WriteLine("3. Create your class");
+            Console.WriteLine("Name of the class?");
+            string className = Console.ReadLine();
+            Console.WriteLine("What is you hit die?");
+            int customHitDie = int.Parse(Console.ReadLine());
+            Console.WriteLine("Choose your primary abilities.");
+            EAbilities[] customPrimaryAbilities = AbilitiesArrayCreator();
+            Console.WriteLine("Choose saving throw proficiencies for your class.");
+            EAbilities[] customSaves = AbilitiesArrayCreator();
+            Console.WriteLine("Choose skill poficiencies for your class.");
+            ESkills[] customProficiency = ESkillsArrayCreator();
+            Class customClass = new Class(className, customHitDie, customPrimaryAbilities, customSaves, customProficiency);
+            #endregion
+
+            #region background
+            Console.WriteLine("4. Create your background");
+            Console.WriteLine("Name of the background?");
+            string backgroundName = Console.ReadLine();
+            Console.WriteLine("Choose skill poficiencies for your background.");
+            ESkills[] customBackgroundProficiency = ESkillsArrayCreator();
+            Background customBackground = new Background(backgroundName, customBackgroundProficiency);
+            #endregion
+
+            CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName, customAbilityPoints, customRace, customClass, customAlignment, customBackground));
+
+            using (var db = new DBContext())
+            {
+                db.CharacterSheets.Add(customCharSheet);
+                var count = db.SaveChanges();
+                Console.WriteLine("{0} character sheet/s have been modified.", count);
+            }
+        }
 
         public static EAbilities[] AbilitiesArrayCreator()
         {
@@ -217,6 +201,7 @@ namespace MvE.Tester
             }
             return selectedAbilities;
         }
+
         public static ESkills[] ESkillsArrayCreator()
         {
             bool isDone = false;
@@ -350,6 +335,7 @@ namespace MvE.Tester
             }
             return selectedSkills;
         }
+
         public static int[] AbilityPointsCreator_SDCIWC()
         {
             int[] abilityPoints_SDCIWC = new int[6];
@@ -368,6 +354,7 @@ namespace MvE.Tester
 
             return abilityPoints_SDCIWC;
         }
+
         public static EAlignment AlignmentChooser()
         {
             Console.WriteLine("What is your alignmet?");
