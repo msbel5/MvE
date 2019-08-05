@@ -12,6 +12,10 @@ namespace MvE.Tester
     {
         static void Main(string[] args)
         {
+            
+
+            #region Custom Creation
+
             EAbilities[] abilities = new EAbilities[]
                 { EAbilities.Strength, EAbilities.Dexterity, EAbilities.Constitution, EAbilities.Intelligence, EAbilities.Wisdom, EAbilities.Charisma };
             Race human = new Race("Human", 30, abilities, 'm');
@@ -25,7 +29,7 @@ namespace MvE.Tester
             CharacterSheet marvinOld = new CharacterSheet(MarvinTheHumanBard);
 
             #region CharSheet
-                        
+
             #region race
             Console.WriteLine("1. Create your race");
             Console.WriteLine("Name of the race?");
@@ -35,7 +39,7 @@ namespace MvE.Tester
             Console.WriteLine("Size of the race?");
             char raceSize = (char)Console.Read();
             Console.WriteLine("Select ability bonuses, every selection provides +1 to selected ability.");
-            EAbilities[] selectedAbilities = EAbilitiesArrayCreator();
+            EAbilities[] selectedAbilities = AbilitiesArrayCreator();
             Race customRace = new Race(raceName, raceSpeed, selectedAbilities, raceSize);
             #endregion
             #region class
@@ -45,9 +49,9 @@ namespace MvE.Tester
             Console.WriteLine("What is you hit die?");
             int customHitDie = int.Parse(Console.ReadLine());
             Console.WriteLine("Choose your primary abilities.");
-            EAbilities[] customPrimaryAbilities = EAbilitiesArrayCreator();
+            EAbilities[] customPrimaryAbilities = AbilitiesArrayCreator();
             Console.WriteLine("Choose saving throw proficiencies for your class.");
-            EAbilities[] customSaves = EAbilitiesArrayCreator();
+            EAbilities[] customSaves = AbilitiesArrayCreator();
             Console.WriteLine("Choose skill poficiencies for your class.");
             ESkills[] customProficiency = ESkillsArrayCreator();
             Class customClass = new Class(className, customHitDie, customPrimaryAbilities, customSaves, customProficiency);
@@ -64,17 +68,26 @@ namespace MvE.Tester
             Console.WriteLine("What is your character's name?");
             string customCharName = Console.ReadLine();
             #region abilityPoints
-            int[] customAbilityPoints = abilityPointsCreator_SDCIWC();
+            int[] customAbilityPoints = AbilityPointsCreator_SDCIWC();
             #endregion
             EAlignment customAlignment = AlignmentChooser();
-            CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName,customAbilityPoints,customRace,customClass,customAlignment, customBackground));
+            CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName, customAbilityPoints, customRace, customClass, customAlignment, customBackground));
 
             #endregion
 
             using (var db = new DBContext())
             {
                 db.CharacterSheets.Add(customCharSheet);
+                var count = db.SaveChanges();
+
+                Console.WriteLine("{0} character sheet/s have been added.",count);
             }
+
+
+            #endregion
+
+
+            
 
             using (var dbcont = new DBContext())
             {
@@ -142,23 +155,28 @@ namespace MvE.Tester
             }
         }
 
-        public static EAbilities[] EAbilitiesArrayCreator()
+        #region Methods
+
+        public static EAbilities[] AbilitiesArrayCreator()
         {
             bool isDone = false;
             EAbilities[] selectedAbilities = new EAbilities[0];
 
-                Console.WriteLine("Choose ability type to add.");
-                Console.WriteLine("1) Strength");
-                Console.WriteLine("2) Dexterity");
-                Console.WriteLine("3) Constitution");
-                Console.WriteLine("4) Intelligence");
-                Console.WriteLine("5) Wisdom");
-                Console.WriteLine("6) Charisma");
-                Console.WriteLine("7) Done.");
-                
+            Console.WriteLine("Choose ability type to add.");
+            Console.WriteLine("1) Strength");
+            Console.WriteLine("2) Dexterity");
+            Console.WriteLine("3) Constitution");
+            Console.WriteLine("4) Intelligence");
+            Console.WriteLine("5) Wisdom");
+            Console.WriteLine("6) Charisma");
+            Console.WriteLine("7) Done.");
+
             while (!isDone)
             {
-                switch (int.Parse(Console.ReadLine()))
+                FlushKeyboard();
+                var input = Console.ReadLine();
+                int selection = Convert.ToInt32(input);
+                switch (selection)
                 {
                     case 1:
                         Array.Resize(ref selectedAbilities, selectedAbilities.Length + 1);
@@ -204,30 +222,32 @@ namespace MvE.Tester
             bool isDone = false;
             ESkills[] selectedSkills = new ESkills[0];
 
-                Console.WriteLine("Choose skills type to add.");
-                Console.WriteLine("1) Athletics");
-                Console.WriteLine("2) Acrobatics");
-                Console.WriteLine("3) Sleight Of Hand");
-                Console.WriteLine("4) Stealth");
-                Console.WriteLine("5) Arcana");
-                Console.WriteLine("6) History");
-                Console.WriteLine("7) Investigation");
-                Console.WriteLine("8) Nature");
-                Console.WriteLine("9) Religion");
-                Console.WriteLine("10) Animal Handling");
-                Console.WriteLine("11) Insight");
-                Console.WriteLine("12) Medicine");
-                Console.WriteLine("13) Perception");
-                Console.WriteLine("14) Survival");
-                Console.WriteLine("15) Deception");
-                Console.WriteLine("16) Intimidation");
-                Console.WriteLine("17) Performance");
-                Console.WriteLine("18) Persuasion");
-                Console.WriteLine("19) Done.");
-                
+            Console.WriteLine("Choose skills type to add.");
+            Console.WriteLine("1) Athletics");
+            Console.WriteLine("2) Acrobatics");
+            Console.WriteLine("3) Sleight Of Hand");
+            Console.WriteLine("4) Stealth");
+            Console.WriteLine("5) Arcana");
+            Console.WriteLine("6) History");
+            Console.WriteLine("7) Investigation");
+            Console.WriteLine("8) Nature");
+            Console.WriteLine("9) Religion");
+            Console.WriteLine("10) Animal Handling");
+            Console.WriteLine("11) Insight");
+            Console.WriteLine("12) Medicine");
+            Console.WriteLine("13) Perception");
+            Console.WriteLine("14) Survival");
+            Console.WriteLine("15) Deception");
+            Console.WriteLine("16) Intimidation");
+            Console.WriteLine("17) Performance");
+            Console.WriteLine("18) Persuasion");
+            Console.WriteLine("19) Done.");
+
             while (!isDone)
             {
-                int selection = int.Parse(Console.ReadLine());
+                FlushKeyboard();
+                var input = Console.ReadLine();
+                int selection = Convert.ToInt32(input);
                 switch (selection)
                 {
                     case 1:
@@ -330,7 +350,7 @@ namespace MvE.Tester
             }
             return selectedSkills;
         }
-        public static int[] abilityPointsCreator_SDCIWC()
+        public static int[] AbilityPointsCreator_SDCIWC()
         {
             int[] abilityPoints_SDCIWC = new int[6];
             Console.WriteLine("What is your Strength score");
@@ -348,42 +368,54 @@ namespace MvE.Tester
 
             return abilityPoints_SDCIWC;
         }
-        public static EAlignment AlignmentChooser() {
+        public static EAlignment AlignmentChooser()
+        {
             Console.WriteLine("What is your alignmet?");
-            Console.WriteLine("1) "+EAlignment.lawfulGood.ToString());
-            Console.WriteLine("2) "+EAlignment.neutralGood.ToString());
-            Console.WriteLine("3) " + EAlignment.chaoticGood.ToString());
-            Console.WriteLine("4) " + EAlignment.lawfulNeutral.ToString());
-            Console.WriteLine("5) " + EAlignment.trueNeutral.ToString());
-            Console.WriteLine("6) " + EAlignment.chaoticNeutral.ToString());
-            Console.WriteLine("7) " + EAlignment.lawfulEvil.ToString());
-            Console.WriteLine("8) " + EAlignment.neutralEvil.ToString());
-            Console.WriteLine("9) " + EAlignment.chaoticEvil.ToString());
-            int selection = Console.Read();
+            Console.WriteLine("1) Lawful Good");
+            Console.WriteLine("2) Neutral Good");
+            Console.WriteLine("3) Chaoti cGood");
+            Console.WriteLine("4) Lawful Neutral");
+            Console.WriteLine("5) True Neutral");
+            Console.WriteLine("6) Chaotic Neutral");
+            Console.WriteLine("7) Lawful Evil");
+            Console.WriteLine("8) Neutral Evil");
+            Console.WriteLine("9) Chaotic Evil");
+            FlushKeyboard();
+            var input = Console.ReadLine();
+            int selection = Convert.ToInt32(input);
 
             switch (selection)
             {
                 case 1:
-                    return EAlignment.lawfulGood;                    
+                    return EAlignment.lawfulGood;
                 case 2:
-                    return EAlignment.neutralGood;                    
+                    return EAlignment.neutralGood;
                 case 3:
-                    return EAlignment.chaoticGood;                    
+                    return EAlignment.chaoticGood;
                 case 4:
-                    return EAlignment.lawfulNeutral;                    
+                    return EAlignment.lawfulNeutral;
                 case 5:
-                    return EAlignment.trueNeutral;                    
+                    return EAlignment.trueNeutral;
                 case 6:
-                    return EAlignment.chaoticNeutral;                    
+                    return EAlignment.chaoticNeutral;
                 case 7:
-                    return EAlignment.lawfulEvil;                    
+                    return EAlignment.lawfulEvil;
                 case 8:
-                    return EAlignment.neutralEvil;                    
+                    return EAlignment.neutralEvil;
                 case 9:
-                    return EAlignment.chaoticEvil;                    
+                    return EAlignment.chaoticEvil;
                 default:
-                    return EAlignment.trueNeutral;                    
+                    return EAlignment.trueNeutral;
             }
         }
+
+        private static void FlushKeyboard()
+        {
+            while (Console.In.Peek() != -1)
+                Console.In.Read();
+        }
+
+        #endregion
+
     }
 }
