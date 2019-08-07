@@ -2,6 +2,7 @@
 using MvE.DAL.Data;
 using MvE.DAL.Models;
 using MvE.DAL.Models.Enums;
+using MvE.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,69 +15,24 @@ namespace MvE.Tester
     {
         static void Main(string[] args)
         {
+            SheetRepository SheetRepo = new SheetRepository();
+
             Console.WriteLine("Do you want to create a new character?");
             var input = Console.ReadKey().KeyChar;
+            Console.WriteLine();
             if (input == 'y')
             {
                 Console.WriteLine();
                 SheetCreator();
             }
 
-            using (var dbcont = new DBContext())
+
+            if (SheetRepo.GetAll().Count() == 0) { Console.WriteLine("No character have been found!"); }
+
+            foreach (CharacterSheet sheet in SheetRepo.GetAll())
             {
-                if (dbcont.CharacterSheets.Count() == 0) { Console.WriteLine("No character have been found!"); }
-
-                foreach (CharacterSheet sheet in dbcont.CharacterSheets)
-                {
-                    var table = new ConsoleTable("name", "value", "value2", "value3");
-                    table.AddRow("Id", "───────────────", "──────────────>", sheet.Id)
-                        .AddRow("CharName", "───────────────", "──────────────>", sheet.Name)
-                        .AddRow("Race", "───────────────", "──────────────>", sheet.Race)
-                        .AddRow("Class", "───────────────", "──────────────>", sheet.Class)
-                        .AddRow("Background", "───────────────", "──────────────>", sheet.Background)
-                        .AddRow("Alignment", "───────────────", "──────────────>", sheet.Alignment)
-                        .AddRow("Level", "───────────────", "──────────────>", sheet.Level)
-                        .AddRow("Initiative", "───────────────", "──────────────>", sheet.Initiative)
-                        .AddRow("Speed", "───────────────", "──────────────>", sheet.Speed)
-                        .AddRow("Proficiency Bonus", "───────────────", "──────────────>", sheet.ProficiencyBonus)
-                        .AddRow("Max Hit Points", "───────────────", "──────────────>", sheet.MaxHitPoints)
-                        .AddRow("Hit Die", "───────────────", "──────────────>", sheet.HitDie)
-                        .AddRow("Passive Wisdom", "───────────────", "──────────────>", sheet.PassiveWisdom)
-                        .AddRow("---------------", "---------------", "---------------", "---------------")
-                        .AddRow("Str", sheet.Strength, sheet.StrengthModifier, sheet.StrengthSave)
-                        .AddRow("└──────────────", "Athletics", "──────────────>", sheet.Athletics)
-                        .AddRow("---------------", "---------------", "---------------", "---------------")
-                        .AddRow("Dex", sheet.Dexterity, sheet.DexterityModifier, sheet.DexteritySave)
-                        .AddRow("├──────────────", "Acrobatics", "──────────────>", sheet.Acrobatics)
-                        .AddRow("├──────────────", "Sleight Of Hand", "──────────────>", sheet.SleightOfHand)
-                        .AddRow("└──────────────", "Stealth", "──────────────>", sheet.Stealth)
-                        .AddRow("---------------", "---------------", "---------------", "---------------")
-                        .AddRow("Con", sheet.Constitution, sheet.ConstitutionModifier, sheet.ConstitutionSave)
-                        .AddRow("---------------", "---------------", "---------------", "---------------")
-                        .AddRow("Int", sheet.Intelligence, sheet.IntelligenceModifier, sheet.IntelligenceSave)
-                        .AddRow("├──────────────", "Arcana", "──────────────>", sheet.Arcana)
-                        .AddRow("├──────────────", "History", "──────────────>", sheet.History)
-                        .AddRow("├──────────────", "Investigation", "──────────────>", sheet.Investigation)
-                        .AddRow("├──────────────", "Nature", "──────────────>", sheet.Nature)
-                        .AddRow("└──────────────", "Religion", "──────────────>", sheet.Religion)
-                        .AddRow("---------------", "---------------", "---------------", "---------------")
-                        .AddRow("Wis", sheet.Wisdom, sheet.WisdomModifier, sheet.WisdomSave)
-                        .AddRow("├──────────────", "Animal Handling", "──────────────>", sheet.AnimalHandling)
-                        .AddRow("├──────────────", "Insight", "──────────────>", sheet.Insight)
-                        .AddRow("├──────────────", "Medicine", "──────────────>", sheet.Medicine)
-                        .AddRow("├──────────────", "Perception", "──────────────>", sheet.Perception)
-                        .AddRow("└──────────────", "Survival", "──────────────>", sheet.Survival)
-                        .AddRow("---------------", "---------------", "---------------", "---------------")
-                        .AddRow("Cha", sheet.Charisma, sheet.CharismaModifier, sheet.CharismaSave)
-                        .AddRow("├──────────────", "Deception", "──────────────>", sheet.Deception)
-                        .AddRow("├──────────────", "Intimidation", "──────────────>", sheet.Intimidation)
-                        .AddRow("├──────────────", "Performance", "──────────────>", sheet.Performance)
-                        .AddRow("└──────────────", "Persuasion", "──────────────>", sheet.Persuasion);
-
-
-                    table.Configure(t => t.NumberAlignment = Alignment.Right).Write(Format.MarkDown);
-                    Console.WriteLine(); Console.WriteLine("Press any key to show next sheet..."); Console.WriteLine(); Console.ReadKey(true);
-                }
+                Console.WriteLine();
+                PrintSheet(sheet);
                 Console.Write("Press any key to continue...");
                 Console.ReadKey(true);
             }
@@ -133,12 +89,63 @@ namespace MvE.Tester
 
             CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName, customAbilityPoints, customRace, customClass, customAlignment, customBackground));
 
-            using (var db = new DBContext())
-            {
-                db.CharacterSheets.Add(customCharSheet);
-                var count = db.SaveChanges();
-                Console.WriteLine("{0} character sheet/s have been modified.", count);
-            }
+            SheetRepository sheetRepository = new SheetRepository();
+            var count = sheetRepository.Add(customCharSheet);            
+            Console.WriteLine("{0} character sheet/s have been modified.", count);
+
+        }
+
+        public static void PrintSheet(CharacterSheet sheet)
+        {
+            var table = new ConsoleTable("name", "value", "value2", "value3");
+            table.AddRow("Id", "───────────────", "──────────────>", sheet.Id)
+                .AddRow("CharName", "───────────────", "──────────────>", sheet.Name)
+                .AddRow("Race", "───────────────", "──────────────>", sheet.Race)
+                .AddRow("Class", "───────────────", "──────────────>", sheet.Class)
+                .AddRow("Background", "───────────────", "──────────────>", sheet.Background)
+                .AddRow("Alignment", "───────────────", "──────────────>", sheet.Alignment)
+                .AddRow("Level", "───────────────", "──────────────>", sheet.Level)
+                .AddRow("Initiative", "───────────────", "──────────────>", sheet.Initiative)
+                .AddRow("Speed", "───────────────", "──────────────>", sheet.Speed)
+                .AddRow("Proficiency Bonus", "───────────────", "──────────────>", sheet.ProficiencyBonus)
+                .AddRow("Max Hit Points", "───────────────", "──────────────>", sheet.MaxHitPoints)
+                .AddRow("Hit Die", "───────────────", "──────────────>", sheet.HitDie)
+                .AddRow("Passive Wisdom", "───────────────", "──────────────>", sheet.PassiveWisdom)
+                .AddRow("---------------", "---------------", "---------------", "---------------")
+                .AddRow("Str", sheet.Strength, sheet.StrengthModifier, sheet.StrengthSave)
+                .AddRow("└──────────────", "Athletics", "──────────────>", sheet.Athletics)
+                .AddRow("---------------", "---------------", "---------------", "---------------")
+                .AddRow("Dex", sheet.Dexterity, sheet.DexterityModifier, sheet.DexteritySave)
+                .AddRow("├──────────────", "Acrobatics", "──────────────>", sheet.Acrobatics)
+                .AddRow("├──────────────", "Sleight Of Hand", "──────────────>", sheet.SleightOfHand)
+                .AddRow("└──────────────", "Stealth", "──────────────>", sheet.Stealth)
+                .AddRow("---------------", "---------------", "---------------", "---------------")
+                .AddRow("Con", sheet.Constitution, sheet.ConstitutionModifier, sheet.ConstitutionSave)
+                .AddRow("---------------", "---------------", "---------------", "---------------")
+                .AddRow("Int", sheet.Intelligence, sheet.IntelligenceModifier, sheet.IntelligenceSave)
+                .AddRow("├──────────────", "Arcana", "──────────────>", sheet.Arcana)
+                .AddRow("├──────────────", "History", "──────────────>", sheet.History)
+                .AddRow("├──────────────", "Investigation", "──────────────>", sheet.Investigation)
+                .AddRow("├──────────────", "Nature", "──────────────>", sheet.Nature)
+                .AddRow("└──────────────", "Religion", "──────────────>", sheet.Religion)
+                .AddRow("---------------", "---------------", "---------------", "---------------")
+                .AddRow("Wis", sheet.Wisdom, sheet.WisdomModifier, sheet.WisdomSave)
+                .AddRow("├──────────────", "Animal Handling", "──────────────>", sheet.AnimalHandling)
+                .AddRow("├──────────────", "Insight", "──────────────>", sheet.Insight)
+                .AddRow("├──────────────", "Medicine", "──────────────>", sheet.Medicine)
+                .AddRow("├──────────────", "Perception", "──────────────>", sheet.Perception)
+                .AddRow("└──────────────", "Survival", "──────────────>", sheet.Survival)
+                .AddRow("---------------", "---------------", "---------------", "---------------")
+                .AddRow("Cha", sheet.Charisma, sheet.CharismaModifier, sheet.CharismaSave)
+                .AddRow("├──────────────", "Deception", "──────────────>", sheet.Deception)
+                .AddRow("├──────────────", "Intimidation", "──────────────>", sheet.Intimidation)
+                .AddRow("├──────────────", "Performance", "──────────────>", sheet.Performance)
+                .AddRow("└──────────────", "Persuasion", "──────────────>", sheet.Persuasion);
+
+
+            table.Configure(t => t.NumberAlignment = Alignment.Right).Write(Format.MarkDown);
+            Console.WriteLine(); Console.WriteLine("Press any key to show next sheet..."); Console.WriteLine(); Console.ReadKey(true);
+
         }
 
         public static EAbilities[] AbilitiesArrayCreator()
