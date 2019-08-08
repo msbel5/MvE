@@ -1,4 +1,7 @@
-﻿using ConsoleTables;
+﻿using AutoMapper;
+using ConsoleTables;
+using MvE.BLL.DTOs;
+using MvE.BLL.Managers;
 using MvE.DAL.Data;
 using MvE.DAL.Models;
 using MvE.DAL.Models.Enums;
@@ -16,6 +19,18 @@ namespace MvE.Tester
         static void Main(string[] args)
         {
             SheetRepository SheetRepo = new SheetRepository();
+
+            SheetManager SheetMg = new SheetManager();
+
+            List<CharacterSheetDTO> SheetList = SheetMg.GetAll().ToList();
+
+            CharacterSheetDTO sheetDTO = SheetList.First();
+
+            Console.WriteLine(sheetDTO.Name);
+
+            CharacterSheet sheetMapped = SheetMg.DTOtoModel(sheetDTO);
+
+            Console.WriteLine(sheetMapped.Name);
 
             Console.WriteLine("Do you want to create a new character?");
             var input = Console.ReadKey().KeyChar;
@@ -407,6 +422,15 @@ namespace MvE.Tester
         {
             while (Console.In.Peek() != -1)
                 Console.In.Read();
+        }
+
+        private static void InıtializeMapper()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<CharacterSheet, CharacterSheetDTO>();
+                cfg.CreateMap<CharacterSheetDTO, CharacterSheet>();
+            });
         }
 
         #endregion
