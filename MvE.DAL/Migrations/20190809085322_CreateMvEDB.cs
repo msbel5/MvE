@@ -2,7 +2,7 @@
 
 namespace MvE.DAL.Migrations
 {
-    public partial class CreateMvEdb : Migration
+    public partial class CreateMvEDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,7 @@ namespace MvE.DAL.Migrations
                     Alignment = table.Column<string>(nullable: true),
                     ProficiencyBonus = table.Column<int>(nullable: false),
                     Speed = table.Column<int>(nullable: false),
+                    Size = table.Column<char>(nullable: false),
                     Initiative = table.Column<int>(nullable: false),
                     PassiveWisdom = table.Column<int>(nullable: false),
                     MaxHitPoints = table.Column<int>(nullable: false),
@@ -68,8 +69,8 @@ namespace MvE.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "CharacterSheets",
-                columns: new[] { "Id", "Acrobatics", "Alignment", "AnimalHandling", "Arcana", "Athletics", "Background", "Charisma", "CharismaModifier", "CharismaSave", "Class", "Constitution", "ConstitutionModifier", "ConstitutionSave", "Deception", "Dexterity", "DexterityModifier", "DexteritySave", "History", "HitDie", "Initiative", "Insight", "Intelligence", "IntelligenceModifier", "IntelligenceSave", "Intimidation", "Investigation", "Level", "MaxHitPoints", "Medicine", "Name", "Nature", "PassiveWisdom", "Perception", "Performance", "Persuasion", "ProficiencyBonus", "Race", "Religion", "SleightOfHand", "Speed", "Stealth", "Strength", "StrengthModifier", "StrengthSave", "Survival", "Wisdom", "WisdomModifier", "WisdomSave" },
-                values: new object[] { 1984196493, 2, "neutralGood", 3, 6, 2, "Sage", 17, 3, 5, "Bard", 11, 0, 0, 5, 15, 2, 4, 6, 8, 2, 3, 18, 4, 4, 3, 4, 1, 8, 3, "Marvin", 4, 13, 3, 5, 5, 2, "Human", 4, 2, 30, 2, 15, 2, 2, 3, 16, 3, 3 });
+                columns: new[] { "Id", "Acrobatics", "Alignment", "AnimalHandling", "Arcana", "Athletics", "Background", "Charisma", "CharismaModifier", "CharismaSave", "Class", "Constitution", "ConstitutionModifier", "ConstitutionSave", "Deception", "Dexterity", "DexterityModifier", "DexteritySave", "History", "HitDie", "Initiative", "Insight", "Intelligence", "IntelligenceModifier", "IntelligenceSave", "Intimidation", "Investigation", "Level", "MaxHitPoints", "Medicine", "Name", "Nature", "PassiveWisdom", "Perception", "Performance", "Persuasion", "ProficiencyBonus", "Race", "Religion", "Size", "SleightOfHand", "Speed", "Stealth", "Strength", "StrengthModifier", "StrengthSave", "Survival", "Wisdom", "WisdomModifier", "WisdomSave" },
+                values: new object[] { 526055437, 2, "neutralGood", 3, 6, 2, "Sage", 17, 3, 5, "Bard", 11, 0, 0, 5, 15, 2, 4, 6, 8, 2, 3, 18, 4, 4, 3, 4, 1, 8, 3, "Marvin", 4, 13, 3, 5, 5, 2, "Human", 4, 'm', 2, 30, 2, 15, 2, 2, 3, 16, 3, 3 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

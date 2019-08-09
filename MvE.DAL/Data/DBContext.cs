@@ -32,6 +32,7 @@ namespace MvE.DAL.Data
             modelBuilder.Entity<CharacterSheet>().Property(c => c.ProficiencyBonus);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.Initiative);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.Speed);
+            modelBuilder.Entity<CharacterSheet>().Property(c => c.Size);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.MaxHitPoints);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.HitDie);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.Strength);

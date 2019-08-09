@@ -39,9 +39,6 @@ namespace MvE.DAL.Models
             _savingProficiencies = savingProficienciesInt;
             int[] proficientSkillsInt = Array.ConvertAll(proficientSkills, value => (int)value);
             _proficientSkills = proficientSkillsInt;
-        }
-
-        //private Class() { }
-
+        }       
     }
 }

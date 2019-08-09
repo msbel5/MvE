@@ -1,10 +1,11 @@
+using MvE.BLL.DTOs;
 using MvE.DAL.Models;
 using NUnit.Framework;
 using System;
 
 namespace MvE.UnitTests.DAL
 {
-    public class AbilityTests
+    public class AbilityDTOTests
     {
         [SetUp]
         public void Setup()
@@ -14,7 +15,7 @@ namespace MvE.UnitTests.DAL
         [Test]
         public void Ability_Tests()
         {
-            Ability ability = new Ability(16, false);
+            AbilityDTO ability = new AbilityDTO(16, false);
             Assert.AreEqual(ability.Modifier, 3);
             Assert.AreEqual(ability.Score, 16);
             Assert.That(ability.Id, Is.InstanceOf<int>());

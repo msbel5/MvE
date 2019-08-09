@@ -7,7 +7,7 @@ namespace MvE.DAL.Models
 {
     public class CharacterSheet
     {
-        
+
         private int _id;
         private string _name;
         private string _race;
@@ -57,6 +57,7 @@ namespace MvE.DAL.Models
         private int _sleightOfHand;
         private int _stealth;
         private int _survival;
+        private char _size;
 
         public int Id { get => _id; set => _id = value; }
 
@@ -75,6 +76,8 @@ namespace MvE.DAL.Models
         public int ProficiencyBonus { get => _proficiencyBonus; set => _proficiencyBonus = value; }
 
         public int Speed { get => _speed; set => _speed = value; }
+
+        public char Size { get => _size; set => _size = value; }
 
         public int Initiative { get => _initiative; set => _initiative = value; }
 
@@ -138,7 +141,7 @@ namespace MvE.DAL.Models
         {
 
             _id = Guid.NewGuid().GetHashCode();
-            
+
 
             _name = character.Name;
             _race = character.Race.Name;
@@ -154,6 +157,8 @@ namespace MvE.DAL.Models
             _proficiencyBonus = character.ProficiencyBonus;
 
             _speed = character.Speed;
+
+            _size = character.Size;
 
             _initiative = character.Initiative;
 
@@ -215,7 +220,11 @@ namespace MvE.DAL.Models
             #endregion
         }
 
-        public CharacterSheet() { _id = Guid.NewGuid().GetHashCode(); }
+        public CharacterSheet()
+        {
+            _id = Guid.NewGuid().GetHashCode();
+        }
+
     }
 }
 

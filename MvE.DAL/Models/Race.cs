@@ -33,22 +33,6 @@ namespace MvE.DAL.Models
             _size = size;
             int[] abilityBonusesInt = Array.ConvertAll(abilityBonuses, value => (int)value);
             _abilityBonuses = abilityBonusesInt;
-        }
-
-        //private Race() { }
-
-        /*
-        Dwarf,
-        Elf,
-        Halfling,
-        Human,
-        Dragonborn,
-        Gnome,
-        [Display(Name = "Half-Elf")]
-        halfElf,
-        [Display(Name = "Half-Orc")]
-        halfOrc,
-        Tiefling
-        */
+        }        
     }
 }

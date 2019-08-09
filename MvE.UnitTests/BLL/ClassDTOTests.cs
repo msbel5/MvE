@@ -1,4 +1,5 @@
-﻿using MvE.DAL.Models;
+﻿using MvE.BLL.DTOs.Enums;
+using MvE.DAL.Models;
 using MvE.DAL.Models.Enums;
 using NUnit.Framework;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace MvE.UnitTests.DAL
 {
-    public class ClassTests
+    public class ClassDTOTests
     {
         [SetUp]
         public void Setup()
@@ -18,9 +19,9 @@ namespace MvE.UnitTests.DAL
         public void Class_Tests()
         {
 
-            EAbilities[] primaryAbilities = new EAbilities[]{ EAbilities.Charisma};
-            EAbilities[] savingProficiencies = new EAbilities[] { EAbilities.Charisma, EAbilities.Dexterity};
-            ESkills[] classProficency = new ESkills[] { ESkills.Deception, ESkills.Persuasion, ESkills.Performance };
+            EAbilitiesDTO[] primaryAbilities = new EAbilitiesDTO[]{ EAbilitiesDTO.Charisma};
+            EAbilitiesDTO[] savingProficiencies = new EAbilitiesDTO[] { EAbilitiesDTO.Charisma, EAbilitiesDTO.Dexterity};
+            ESkillsDTO[] classProficency = new ESkillsDTO[] { ESkillsDTO.Deception, ESkillsDTO.Persuasion, ESkillsDTO.Performance };
 
             Class bard = new Class("Bard",8,primaryAbilities,savingProficiencies, classProficency);
 

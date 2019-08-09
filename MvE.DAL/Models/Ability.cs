@@ -33,8 +33,6 @@ namespace MvE.DAL.Models
             _isProficient = isProficient;
             _id = Guid.NewGuid().GetHashCode();
         }
-
-        //private Ability(){}
-
+               
     }
 }

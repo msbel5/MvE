@@ -33,11 +33,6 @@ namespace MvE.DAL.Models
             _associatedAbility = associatedAbility;
             _isProficient = isProficient;
         }
-
-        private Skill()
-        {
-
-        }
-
+                
     }
 }

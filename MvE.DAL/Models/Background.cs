@@ -28,8 +28,5 @@ namespace MvE.DAL.Models
             int[] proficientSkillsInt = Array.ConvertAll(proficientSkills, value => (int)value);
             _proficientSkills = proficientSkillsInt;
         }
-
-        //private Background() { }
-
     }
 }

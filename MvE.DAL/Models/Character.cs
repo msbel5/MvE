@@ -381,7 +381,7 @@ namespace MvE.DAL.Models
         public void Heal(int hitPoint)
         {
 
-            if (hitPoint < 0 && _health <= 0) _deathSaves--;
+            if (hitPoint <= 0 && _health <= 0) _deathSaves--;
             _health += hitPoint;
         }
 
@@ -403,11 +403,6 @@ namespace MvE.DAL.Models
                 _hitDie[_hitDie.Length-1] = newClass.HitDie;
             }
         }
-
-        private Character()
-        {
-
-        }
-
+        
     }
 }

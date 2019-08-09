@@ -1,4 +1,6 @@
-﻿using MvE.DAL.Models;
+﻿using MvE.BLL.DTOs;
+using MvE.BLL.DTOs.Enums;
+using MvE.DAL.Models;
 using MvE.DAL.Models.Enums;
 using NUnit.Framework;
 using System;
@@ -7,7 +9,7 @@ using System.Text;
 
 namespace MvE.UnitTests.DAL
 {
-    public class RaceTests
+    public class RaceDTOTests
     {
         [SetUp]
         public void Setup()
@@ -17,8 +19,8 @@ namespace MvE.UnitTests.DAL
         [Test]
         public void Race_Tests()
         {
-            EAbilities[] abilities = new EAbilities[] { EAbilities.Strength, EAbilities.Dexterity, EAbilities.Constitution, EAbilities.Intelligence, EAbilities.Wisdom, EAbilities.Charisma, EAbilities.Intelligence };
-            Race race = new Race("Human", 30, abilities, 'm');
+            EAbilitiesDTO[] abilities = new EAbilitiesDTO[] { EAbilitiesDTO.Strength, EAbilitiesDTO.Dexterity, EAbilitiesDTO.Constitution, EAbilitiesDTO.Intelligence, EAbilitiesDTO.Wisdom, EAbilitiesDTO.Charisma, EAbilitiesDTO.Intelligence };
+            RaceDTO race = new RaceDTO("Human", 30, abilities, 'm');
 
             Assert.AreEqual(race.Name, "Human");
             Assert.AreEqual(race.Speed, 30);

@@ -105,7 +105,7 @@ namespace MvE.Tester
             CharacterSheet customCharSheet = new CharacterSheet(new Character(customCharName, customAbilityPoints, customRace, customClass, customAlignment, customBackground));
 
             SheetRepository sheetRepository = new SheetRepository();
-            var count = sheetRepository.Add(customCharSheet);            
+            var count = sheetRepository.Add(customCharSheet);
             Console.WriteLine("{0} character sheet/s have been modified.", count);
 
         }
@@ -422,15 +422,6 @@ namespace MvE.Tester
         {
             while (Console.In.Peek() != -1)
                 Console.In.Read();
-        }
-
-        private static void InıtializeMapper()
-        {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<CharacterSheet, CharacterSheetDTO>();
-                cfg.CreateMap<CharacterSheetDTO, CharacterSheet>();
-            });
         }
 
         #endregion
