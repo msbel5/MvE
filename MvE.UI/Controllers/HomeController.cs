@@ -4,15 +4,21 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MvE.BLL.Managers;
 using MvE.UI.Models;
 
 namespace MvE.UI.Controllers
 {
     public class HomeController : Controller
     {
+        private SheetManager _sm;
+
+        public HomeController() => _sm = new SheetManager();
+
         public IActionResult Index()
         {
-            return View();
+            var charSheets = _sm.GetAll();
+            return View(charSheets);
         }
 
         public IActionResult About()

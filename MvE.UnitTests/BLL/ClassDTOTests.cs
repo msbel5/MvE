@@ -1,4 +1,5 @@
-﻿using MvE.BLL.DTOs.Enums;
+﻿using MvE.BLL.DTOs;
+using MvE.BLL.DTOs.Enums;
 using MvE.DAL.Models;
 using MvE.DAL.Models.Enums;
 using NUnit.Framework;
@@ -23,7 +24,7 @@ namespace MvE.UnitTests.DAL
             EAbilitiesDTO[] savingProficiencies = new EAbilitiesDTO[] { EAbilitiesDTO.Charisma, EAbilitiesDTO.Dexterity};
             ESkillsDTO[] classProficency = new ESkillsDTO[] { ESkillsDTO.Deception, ESkillsDTO.Persuasion, ESkillsDTO.Performance };
 
-            Class bard = new Class("Bard",8,primaryAbilities,savingProficiencies, classProficency);
+            ClassDTO bard = new ClassDTO("Bard",8,primaryAbilities,savingProficiencies, classProficency);
 
 
             Assert.That(bard.Id, Is.InstanceOf<int>());
