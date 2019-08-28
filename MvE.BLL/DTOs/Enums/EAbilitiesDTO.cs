@@ -11,6 +11,6 @@ namespace MvE.BLL.DTOs.Enums
         Constitution,
         Intelligence,
         Wisdom,
-        Charisma,
+        Charisma
     }
 }

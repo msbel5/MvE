@@ -11,6 +11,6 @@ namespace MvE.DAL.Models.Enums
         Constitution,
         Intelligence,
         Wisdom,
-        Charisma,
+        Charisma
     }
 }

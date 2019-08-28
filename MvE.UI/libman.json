@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js",
+        "jquery.js",
+        "jquery.min.map"
+      ],
+      "library": "jquery@3.4.1"
+    },
+    {
+      "destination": "wwwroot/lib/bootstrap/",
+      "library": "bootstrap@4.3.1",
+      "provider": "unpkg"
+    },
+    {
+      "destination": "wwwroot/lib/bootbox.js/",
+      "library": "bootbox.js@5.3.2"
+    },
+    {
+      "destination": "wwwroot/lib/jquery-validation/",
+      "library": "jQuery-Validation-Engine@2.6.4"
+    },
+    {
+      "destination": "wwwroot/lib/fontawesome",
+      "library": "fontawesome-iconpicker@3.2.0"
+    },
+    {
+      "destination": "wwwroot/lib/jquery-easing",
+      "library": "jquery-easing@1.4.1"
+    }
+  ]
+}

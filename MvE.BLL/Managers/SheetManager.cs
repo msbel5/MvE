@@ -73,12 +73,12 @@ namespace MvE.BLL.Managers
             return _repository.Update(entityId, mappedSheet);
         }
         
-        public CharacterSheet DTOtoModel(CharacterSheetDTO sheetDTO)
+        public CharacterSheet DTOToModel(CharacterSheetDTO sheetDTO)
         {
             return mapper.Map<CharacterSheetDTO, CharacterSheet>(sheetDTO);
         }
 
-        public CharacterSheetDTO ModeltoDto(CharacterSheet sheet)
+        public CharacterSheetDTO ModelToDto(CharacterSheet sheet)
         {
             return mapper.Map<CharacterSheet, CharacterSheetDTO>(sheet);
         }

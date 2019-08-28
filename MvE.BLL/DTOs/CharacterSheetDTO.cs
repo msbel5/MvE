@@ -58,6 +58,11 @@ namespace MvE.BLL.DTOs
         private int _stealth;
         private int _survival;
         private char _size;
+        private string _raceAbilityBonusses;
+        private string _classPrimaryAbilities;
+        private string _classSavingProficiencies;
+        private string _classProficientSkills;
+        private string _backgroundProficientSkills;
 
         public int Id { get => _id; set => _id = value; }
 
@@ -136,6 +141,15 @@ namespace MvE.BLL.DTOs
 
         #endregion
 
+        public string RaceAbilityBonusses { get => _raceAbilityBonusses; set => _raceAbilityBonusses = value; }
+
+        public string ClassPrimaryAbilities { get => _classPrimaryAbilities; set => _classPrimaryAbilities = value; }
+
+        public string ClassSavingProficiencies { get => _classSavingProficiencies; set => _classSavingProficiencies = value; }
+
+        public string ClassProficientSkills { get => _classProficientSkills; set => _classProficientSkills = value; }
+
+        public string BackgroundProficientSkills { get => _backgroundProficientSkills; set => _backgroundProficientSkills = value; }
 
         public CharacterSheetDTO(CharacterDTO character)
         {
@@ -218,6 +232,18 @@ namespace MvE.BLL.DTOs
             _survival = character.Survival.IsProficient ? character.Survival.Bonus + character.ProficiencyBonus : character.Survival.Bonus;
 
             #endregion
+
+
+            _raceAbilityBonusses = string.Join(",", character.Race.AbilityBonuses);
+
+            _classPrimaryAbilities = string.Join(",", character.Class[0].PrimaryAbilities);
+
+            _classSavingProficiencies = string.Join(",", character.Class[0].SavingProficiencies);
+
+            _classProficientSkills = string.Join(",", character.Class[0].ProficientSkills);
+
+            _backgroundProficientSkills = string.Join(",", character.Background.ProficientSkills);
+
         }
 
         public CharacterSheetDTO() { _id = Guid.NewGuid().GetHashCode(); }

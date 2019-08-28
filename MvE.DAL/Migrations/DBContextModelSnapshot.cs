@@ -32,6 +32,8 @@ namespace MvE.DAL.Migrations
 
                     b.Property<string>("Background");
 
+                    b.Property<string>("BackgroundProficientSkills");
+
                     b.Property<int>("Charisma");
 
                     b.Property<int>("CharismaModifier");
@@ -39,6 +41,12 @@ namespace MvE.DAL.Migrations
                     b.Property<int>("CharismaSave");
 
                     b.Property<string>("Class");
+
+                    b.Property<string>("ClassPrimaryAbilities");
+
+                    b.Property<string>("ClassProficientSkills");
+
+                    b.Property<string>("ClassSavingProficiencies");
 
                     b.Property<int>("Constitution");
 
@@ -94,6 +102,8 @@ namespace MvE.DAL.Migrations
 
                     b.Property<string>("Race");
 
+                    b.Property<string>("RaceAbilityBonusses");
+
                     b.Property<int>("Religion");
 
                     b.Property<char>("Size");
@@ -123,7 +133,8 @@ namespace MvE.DAL.Migrations
                     b.ToTable("CharacterSheets");
 
                     b.HasData(
-                        new { Id = 526055437, Acrobatics = 2, Alignment = "neutralGood", AnimalHandling = 3, Arcana = 6, Athletics = 2, Background = "Sage", Charisma = 17, CharismaModifier = 3, CharismaSave = 5, Class = "Bard", Constitution = 11, ConstitutionModifier = 0, ConstitutionSave = 0, Deception = 5, Dexterity = 15, DexterityModifier = 2, DexteritySave = 4, History = 6, HitDie = 8, Initiative = 2, Insight = 3, Intelligence = 18, IntelligenceModifier = 4, IntelligenceSave = 4, Intimidation = 3, Investigation = 4, Level = 1, MaxHitPoints = 8, Medicine = 3, Name = "Marvin", Nature = 4, PassiveWisdom = 13, Perception = 3, Performance = 5, Persuasion = 5, ProficiencyBonus = 2, Race = "Human", Religion = 4, Size = 'm', SleightOfHand = 2, Speed = 30, Stealth = 2, Strength = 15, StrengthModifier = 2, StrengthSave = 2, Survival = 3, Wisdom = 16, WisdomModifier = 3, WisdomSave = 3 }
+                        new { Id = 415872852, Acrobatics = 2, Alignment = "neutralGood", AnimalHandling = 3, Arcana = 6, Athletics = 2, Background = "Sage", BackgroundProficientSkills = "4,5", Charisma = 17, CharismaModifier = 3, CharismaSave = 5, Class = "Bard", ClassPrimaryAbilities = "5", ClassProficientSkills = "14,17,16", ClassSavingProficiencies = "1,5", Constitution = 11, ConstitutionModifier = 0, ConstitutionSave = 0, Deception = 5, Dexterity = 15, DexterityModifier = 2, DexteritySave = 4, History = 6, HitDie = 8, Initiative = 2, Insight = 3, Intelligence = 18, IntelligenceModifier = 4, IntelligenceSave = 4, Intimidation = 3, Investigation = 4, Level = 1, MaxHitPoints = 8, Medicine = 3, Name = "Marvin", Nature = 4, PassiveWisdom = 13, Perception = 3, Performance = 5, Persuasion = 5, ProficiencyBonus = 2, Race = "Human", RaceAbilityBonusses = "0,1,2,3,4,5", Religion = 4, Size = 'm', SleightOfHand = 2, Speed = 30, Stealth = 2, Strength = 15, StrengthModifier = 2, StrengthSave = 2, Survival = 3, Wisdom = 16, WisdomModifier = 3, WisdomSave = 3 },
+                        new { Id = 2048576229, Acrobatics = 2, Alignment = "neutralGood", AnimalHandling = 3, Arcana = 6, Athletics = 2, Background = "Sage", BackgroundProficientSkills = "4,5", Charisma = 17, CharismaModifier = 3, CharismaSave = 5, Class = "Bard", ClassPrimaryAbilities = "5", ClassProficientSkills = "14,17,16", ClassSavingProficiencies = "1,5", Constitution = 11, ConstitutionModifier = 0, ConstitutionSave = 0, Deception = 5, Dexterity = 15, DexterityModifier = 2, DexteritySave = 4, History = 6, HitDie = 8, Initiative = 2, Insight = 3, Intelligence = 18, IntelligenceModifier = 4, IntelligenceSave = 4, Intimidation = 3, Investigation = 4, Level = 1, MaxHitPoints = 8, Medicine = 3, Name = "Marvin", Nature = 4, PassiveWisdom = 13, Perception = 3, Performance = 5, Persuasion = 5, ProficiencyBonus = 2, Race = "Human", RaceAbilityBonusses = "0,1,2,3,4,5", Religion = 4, Size = 'm', SleightOfHand = 2, Speed = 30, Stealth = 2, Strength = 15, StrengthModifier = 2, StrengthSave = 2, Survival = 3, Wisdom = 16, WisdomModifier = 3, WisdomSave = 3 }
                     );
                 });
 #pragma warning restore 612, 618

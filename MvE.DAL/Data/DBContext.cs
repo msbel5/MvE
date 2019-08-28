@@ -72,6 +72,11 @@ namespace MvE.DAL.Data
             modelBuilder.Entity<CharacterSheet>().Property(c => c.Stealth);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.Survival);
             modelBuilder.Entity<CharacterSheet>().Property(c => c.PassiveWisdom);
+            modelBuilder.Entity<CharacterSheet>().Property(c => c.RaceAbilityBonusses);
+            modelBuilder.Entity<CharacterSheet>().Property(c => c.ClassPrimaryAbilities);
+            modelBuilder.Entity<CharacterSheet>().Property(c => c.ClassProficientSkills);
+            modelBuilder.Entity<CharacterSheet>().Property(c => c.ClassSavingProficiencies);
+            modelBuilder.Entity<CharacterSheet>().Property(c => c.BackgroundProficientSkills);
 
             EAbilities[] abilities = new EAbilities[] { EAbilities.Strength, EAbilities.Dexterity, EAbilities.Constitution, EAbilities.Intelligence, EAbilities.Wisdom, EAbilities.Charisma };
             Race human = new Race("Human", 30, abilities, 'm');
@@ -83,8 +88,12 @@ namespace MvE.DAL.Data
             int[] abilityPoints_SDCIWC = new int[6] { 14, 14, 10, 17, 15, 16 };
             Character MarvinTheHumanBard = new Character("Marvin", abilityPoints_SDCIWC, human, bard, EAlignment.neutralGood, sage);
             CharacterSheet Marvin = new CharacterSheet(MarvinTheHumanBard);
+            Character DarwinTheHumanScientiest = new Character("Darwin", abilityPoints_SDCIWC, human, bard, EAlignment.lawfulGood, sage);
+            CharacterSheet Darwin = new CharacterSheet(MarvinTheHumanBard);
 
             modelBuilder.Entity<CharacterSheet>().HasData(Marvin);
+            modelBuilder.Entity<CharacterSheet>().HasData(Darwin);
+
 
         }
 

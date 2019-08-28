@@ -1,0 +1,224 @@
+﻿@model MvE.BLL.DTOs.CharacterSheetDTO
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">@Model.Name the @Model.Race @Model.Class</h1>
+<hr />
+<h2 class="text-center">Details</h2>
+<div class="table">
+    <div class="row p-2">
+        <div class="col-xl-4 d-flex justify-content-center border">
+            <div class="row align-self-xl-center">@Html.DisplayFor(model => model.Name)</div>
+        </div>
+        <div class="col-xl-4 ">
+
+            <div class="row d-flex justify-content-center border">@Html.DisplayFor(model => model.Race)</div>
+            <div class="row d-flex justify-content-center border">@Html.DisplayFor(model => model.Class)</div>
+
+        </div>
+        <div class="col-xl-4">
+
+            <div class="row d-flex justify-content-center border">@Html.DisplayFor(model => model.Background)</div>
+            <div class="row d-flex justify-content-center border">@Html.DisplayFor(model => model.Alignment)</div>
+
+        </div>
+    </div>
+    <div class="row align-content-center text-center p-2">
+        <div class="col-xl-2 border"><b>Proficiency Bonus</b><br />@Html.DisplayFor(m => m.ProficiencyBonus)</div>
+        <div class="col-xl-2 border"><b>Speed</b><br />@Html.DisplayFor(m => m.Speed)</div>
+        <div class="col-xl-2 border"><b>Size</b><br />@Html.DisplayFor(m => m.Size)</div>
+        <div class="col-xl-2 border"><b>Initiative</b><br />@Html.DisplayFor(m => m.Initiative)</div>
+        <div class="col-xl-2 border"><b>Passive Wisdom</b><br />@Html.DisplayFor(m => m.PassiveWisdom)</div>
+        <div class="col-xl-2 border"><b>Hit Die</b><br />@Html.DisplayFor(m => m.HitDie)</div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12 align-content-center text-center p-2">
+            <h3 class="p-2">Abilities</h3>
+            <div class="row border">
+                <div class="col-xl-4 align-content-center ">
+                    <b>Strength</b><br />
+                    @Html.DisplayFor(m => m.Strength)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Modifier</b><br />
+                    @Html.DisplayFor(m => m.StrengthModifier)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Save</b><br />
+                    @Html.DisplayFor(m => m.StrengthSave)
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col-xl-4 align-content-center ">
+                    <b>Dexterity</b><br />
+                    @Html.DisplayFor(m => m.Dexterity)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Modifier</b><br />
+                    @Html.DisplayFor(m => m.DexterityModifier)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Save</b><br />
+                    @Html.DisplayFor(m => m.DexteritySave)
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col-xl-4 align-content-center ">
+                    <b>Constitution</b><br />
+                    @Html.DisplayFor(m => m.Constitution)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Modifier</b><br />
+                    @Html.DisplayFor(m => m.ConstitutionModifier)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Save</b><br />
+                    @Html.DisplayFor(m => m.ConstitutionSave)
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col-xl-4 align-content-center ">
+                    <b>Intelligence</b><br />
+                    @Html.DisplayFor(m => m.Intelligence)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Modifier</b><br />
+                    @Html.DisplayFor(m => m.IntelligenceModifier)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Save</b><br />
+                    @Html.DisplayFor(m => m.IntelligenceSave)
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col-xl-4 align-content-center ">
+                    <b>Wisdom</b><br />
+                    @Html.DisplayFor(m => m.Wisdom)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Modifier</b><br />
+                    @Html.DisplayFor(m => m.WisdomModifier)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Save</b><br />
+                    @Html.DisplayFor(m => m.WisdomSave)
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col-xl-4 align-content-center ">
+                    <b>Charisma</b><br />
+                    @Html.DisplayFor(m => m.Charisma)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Modifier</b><br />
+                    @Html.DisplayFor(m => m.CharismaModifier)
+                </div>
+                <div class="col-xl-4 align-content-center ">
+                    <b>Save</b><br />
+                    @Html.DisplayFor(m => m.CharismaSave)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-xl-12 align-content-center text-center p-2">
+            <h3 class="p-2">Skills</h3>
+            <div class="row">
+                <div class="col-xl-4 align-content-center border">
+                    <b>Acrobatics</b><br />
+                    @Html.DisplayFor(m => m.Acrobatics)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Animal Handling</b><br />
+                    @Html.DisplayFor(m => m.AnimalHandling)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Arcana</b><br />
+                    @Html.DisplayFor(m => m.Arcana)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 align-content-center border">
+                    <b>Athletics</b><br />
+                    @Html.DisplayFor(m => m.Athletics)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Deception</b><br />
+                    @Html.DisplayFor(m => m.Deception)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>History</b><br />
+                    @Html.DisplayFor(m => m.History)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 align-content-center border">
+                    <b>Insight</b><br />
+                    @Html.DisplayFor(m => m.Insight)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Intimidation</b><br />
+                    @Html.DisplayFor(m => m.Intimidation)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Investigation</b><br />
+                    @Html.DisplayFor(m => m.Investigation)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 align-content-center border">
+                    <b>Medicine</b><br />
+                    @Html.DisplayFor(m => m.Medicine)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Nature</b><br />
+                    @Html.DisplayFor(m => m.Nature)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Perception</b><br />
+                    @Html.DisplayFor(m => m.Perception)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 align-content-center border">
+                    <b>Performance</b><br />
+                    @Html.DisplayFor(m => m.Performance)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Persuasion</b><br />
+                    @Html.DisplayFor(m => m.Persuasion)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Religion</b><br />
+                    @Html.DisplayFor(m => m.Religion)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 align-content-center border">
+                    <b>Sleight Of Hand</b><br />
+                    @Html.DisplayFor(m => m.SleightOfHand)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Stealth</b><br />
+                    @Html.DisplayFor(m => m.Stealth)
+                </div>
+                <div class="col-xl-4 align-content-center border">
+                    <b>Survival</b><br />
+                    @Html.DisplayFor(m => m.Survival)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+

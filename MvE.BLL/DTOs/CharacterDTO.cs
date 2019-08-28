@@ -174,6 +174,60 @@ namespace MvE.BLL.DTOs
             SkillProficiencyAtainer(_background.ProficientSkills);
         }
 
+
+        public CharacterDTO(CharacterSheetDTO cs)
+        {
+            int[] RaceAbilityBonusses = Array.ConvertAll(cs.RaceAbilityBonusses.Split(','), x => int.Parse(x));
+            int[] ClassPrimaryAbilities = Array.ConvertAll(cs.ClassPrimaryAbilities.Split(','), x => int.Parse(x));
+            int[] ClassSavingProficiencies = Array.ConvertAll(cs.ClassSavingProficiencies.Split(','), x => int.Parse(x));
+            int[] ClassProficientSkills = Array.ConvertAll(cs.ClassProficientSkills.Split(','), x => int.Parse(x));
+            int[] BackgroundProficientSkills = Array.ConvertAll(cs.BackgroundProficientSkills.Split(','), x => int.Parse(x));
+            int[] TotalAbilityBonus = new int[] { cs.Stealth, cs.Dexterity, cs.Constitution, cs.Intelligence, cs.Wisdom, cs.Charisma };
+
+            foreach (int ability in RaceAbilityBonusses)
+            {
+                switch (ability)
+                {
+                    case (int)EAbilities.Strength:
+                        TotalAbilityBonus[0] -= 1;
+                        break;
+                    case (int)EAbilities.Dexterity:
+                        TotalAbilityBonus[1] -= 1;
+                        break;
+                    case (int)EAbilities.Constitution:
+                        TotalAbilityBonus[2] -= 1;
+                        break;
+                    case (int)EAbilities.Intelligence:
+                        TotalAbilityBonus[3] -= 1;
+                        break;
+                    case (int)EAbilities.Wisdom:
+                        TotalAbilityBonus[4] -= 1;
+                        break;
+                    case (int)EAbilities.Charisma:
+                        TotalAbilityBonus[5] -= 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            _id = cs.Id;
+            _name = cs.Name;
+            AbilityPointDistributor(TotalAbilityBonus);
+            SkillAranger();
+            _race = new RaceDTO(cs.Race, cs.Speed, Array.ConvertAll(RaceAbilityBonusses, x => (EAbilitiesDTO)x), cs.Size);
+            _class[0] = new ClassDTO(cs.Class, cs.HitDie, Array.ConvertAll(ClassPrimaryAbilities, x => (EAbilitiesDTO)x), Array.ConvertAll(ClassSavingProficiencies, x => (EAbilitiesDTO)x), Array.ConvertAll(ClassProficientSkills, x => (ESkillsDTO)x));
+            _alignment = (EAlignmentDTO)Enum.Parse(typeof(EAlignment), cs.Alignment);
+            _background = new BackgroundDTO(cs.Background, Array.ConvertAll(BackgroundProficientSkills, x => (ESkillsDTO)x));
+            _hitDie[0] = cs.HitDie;
+            _maxHitPoint = cs.MaxHitPoints;
+            _health = _maxHitPoint;
+            AbilityBonusAttainer(_race.AbilityBonuses);
+            AbilityProficiencyAtainer(_class[0].SavingProficiencies);
+            SkillProficiencyAtainer(_class[0].ProficientSkills);
+            SkillProficiencyAtainer(_background.ProficientSkills);
+        }
+
         public void AbilityBonusAttainer(int[] abilities)
         {
             foreach (int ability in abilities)

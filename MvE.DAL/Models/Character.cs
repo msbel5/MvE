@@ -137,7 +137,7 @@ namespace MvE.DAL.Models
                 return _passiveWisdom;
             }
         }
-                
+
         public int Initiative { get { return _dexterity.Modifier; } }
 
         public int Speed { get { return _race.Speed; } }
@@ -173,6 +173,59 @@ namespace MvE.DAL.Models
             SkillProficiencyAtainer(_background.ProficientSkills);
         }
 
+        public Character(CharacterSheet cs)
+        {
+            int[] RaceAbilityBonusses = Array.ConvertAll(cs.RaceAbilityBonusses.Split(','), x => int.Parse(x));
+            int[] ClassPrimaryAbilities = Array.ConvertAll(cs.ClassPrimaryAbilities.Split(','), x => int.Parse(x));
+            int[] ClassSavingProficiencies = Array.ConvertAll(cs.ClassSavingProficiencies.Split(','), x => int.Parse(x));
+            int[] ClassProficientSkills = Array.ConvertAll(cs.ClassProficientSkills.Split(','), x => int.Parse(x));
+            int[] BackgroundProficientSkills = Array.ConvertAll(cs.BackgroundProficientSkills.Split(','), x => int.Parse(x));
+            int[] TotalAbilityBonus = new int[] { cs.Stealth, cs.Dexterity, cs.Constitution, cs.Intelligence, cs.Wisdom, cs.Charisma };
+
+            foreach (int ability in RaceAbilityBonusses)
+            {
+                switch (ability)
+                {
+                    case (int)EAbilities.Strength:
+                        TotalAbilityBonus[0] -= 1;
+                        break;
+                    case (int)EAbilities.Dexterity:
+                        TotalAbilityBonus[1] -= 1;
+                        break;
+                    case (int)EAbilities.Constitution:
+                        TotalAbilityBonus[2] -= 1;
+                        break;
+                    case (int)EAbilities.Intelligence:
+                        TotalAbilityBonus[3] -= 1;
+                        break;
+                    case (int)EAbilities.Wisdom:
+                        TotalAbilityBonus[4] -= 1;
+                        break;
+                    case (int)EAbilities.Charisma:
+                        TotalAbilityBonus[5] -= 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            _id = cs.Id;
+            _name = cs.Name;
+            AbilityPointDistributor(TotalAbilityBonus);
+            SkillAranger();
+            _race = new Race(cs.Race,cs.Speed,Array.ConvertAll(RaceAbilityBonusses,x=>(EAbilities)x),cs.Size);
+            _class[0] = new Class(cs.Class,cs.HitDie, Array.ConvertAll(ClassPrimaryAbilities, x => (EAbilities)x), Array.ConvertAll(ClassSavingProficiencies, x => (EAbilities)x), Array.ConvertAll(ClassProficientSkills, x => (ESkills)x));
+            _alignment =(EAlignment)Enum.Parse(typeof(EAlignment) ,cs.Alignment);
+            _background = new Background(cs.Background, Array.ConvertAll(BackgroundProficientSkills, x => (ESkills)x));
+            _hitDie[0] = cs.HitDie;
+            _maxHitPoint = cs.MaxHitPoints;
+            _health = _maxHitPoint;
+            AbilityBonusAttainer(_race.AbilityBonuses);
+            AbilityProficiencyAtainer(_class[0].SavingProficiencies);
+            SkillProficiencyAtainer(_class[0].ProficientSkills);
+            SkillProficiencyAtainer(_background.ProficientSkills);
+        }
+
         public void AbilityBonusAttainer(int[] abilities)
         {
             foreach (int ability in abilities)
@@ -199,7 +252,7 @@ namespace MvE.DAL.Models
                         break;
                     default:
                         break;
-                }            
+                }
             }
 
         }
@@ -371,7 +424,7 @@ namespace MvE.DAL.Models
 
             #endregion
         }
-            
+
         public void GainExp(int experience)
         {
             _experience += experience;
@@ -394,15 +447,15 @@ namespace MvE.DAL.Models
         public void LevelUp(Class newClass)
         {
 
-            if (_class[_class.Length-1] == null)
+            if (_class[_class.Length - 1] == null)
             {
-                _class[_class.Length-1] = newClass;
+                _class[_class.Length - 1] = newClass;
                 Random rnd = new Random();
                 _maxHitPoint += rnd.Next(1, newClass.HitDie);
                 _health = _maxHitPoint;
-                _hitDie[_hitDie.Length-1] = newClass.HitDie;
+                _hitDie[_hitDie.Length - 1] = newClass.HitDie;
             }
         }
-        
+
     }
 }

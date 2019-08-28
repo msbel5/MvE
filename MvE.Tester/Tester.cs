@@ -28,7 +28,7 @@ namespace MvE.Tester
 
             Console.WriteLine(sheetDTO.Name);
 
-            CharacterSheet sheetMapped = SheetMg.DTOtoModel(sheetDTO);
+            CharacterSheet sheetMapped = SheetMg.DTOToModel(sheetDTO);
 
             Console.WriteLine(sheetMapped.Name);
 
