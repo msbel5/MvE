@@ -17,7 +17,7 @@ namespace MvE.DAL.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=D:\\Databases\\MvE.db");
+            optionsBuilder.UseSqlite("Data Source=.\\MvE.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -105,7 +105,7 @@ namespace MvE.DAL.Data
             {
                 _created = true;
                 //Database.EnsureDeleted();
-                //Database.EnsureCreated();
+                Database.EnsureCreated();
             }
 
         }
