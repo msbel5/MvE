@@ -3,11 +3,13 @@ using MvE.BLL.DTOs.Enums;
 using MvE.BLL.Managers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MvE.UI.Models
 {
+    
     public class CharacterFormViewModel
     {
         private int _id;
@@ -30,30 +32,34 @@ namespace MvE.UI.Models
         private string _backgroundName;
         private ESkillsDTO[] _backgroundProficientSkills;
         private string _title;
-
-        public int Id { get => _id; set => _id = value; }
+        
+        public int Id { get => _id; set => _id = value; }        
         public string Title { get => _title; set => _title = value; }
         public IEnumerable<Char> Sizes { get => _sizes; set => _sizes = value; }
         public IEnumerable<EAbilitiesDTO> Abilities { get => _abilities; set => _abilities = value; }
         public IEnumerable<ESkillsDTO> Skills { get => _skills; set => _skills = value; }
         public IEnumerable<EAlignmentDTO> Alignments { get => _alignments; set => _alignments = value; }
 
-        public string CharName { get => _charName; set => _charName = value; }
-        public EAlignmentDTO Alignment { get => _alignment; set => _alignment = value; }
+        
+        public string CharName { get => _charName; set => _charName = value; }        
+        public EAlignmentDTO Alignment { get => _alignment; set => _alignment = value; }        
         public int[] BaseAbilityPoints_SDCIWC { get => _baseAbilityPoints_SDCIWC; set => _baseAbilityPoints_SDCIWC = value; }
 
-        public string RaceName { get => _raceName; set => _raceName = value; }
-        public char RaceSize { get => _raceSize; set => _raceSize = value; }
-        public int RaceSpeed { get => _raceSpeed; set => _raceSpeed = value; }
+        
+        public string RaceName { get => _raceName; set => _raceName = value; }        
+        public char RaceSize { get => _raceSize; set => _raceSize = value; }        
+        public int RaceSpeed { get => _raceSpeed; set => _raceSpeed = value; }        
         public int[] RaceAbilityBonuses_SDCIWC { get => _raceAbilityBonuses_SDCIWC; set => _raceAbilityBonuses_SDCIWC = value; }
 
-        public string ClassName { get => _className; set => _className = value; }
-        public int ClassHitDie { get => _classHitDie; set => _classHitDie = value; }
-        public EAbilitiesDTO[] ClassPrimaryAbilities { get => _classPrimaryAbilities; set => _classPrimaryAbilities = value; }
-        public EAbilitiesDTO[] ClassSavingProficiencies { get => _classSavingProficiencies; set => _classSavingProficiencies = value; }
+        
+        public string ClassName { get => _className; set => _className = value; }        
+        public int ClassHitDie { get => _classHitDie; set => _classHitDie = value; }        
+        public EAbilitiesDTO[] ClassPrimaryAbilities { get => _classPrimaryAbilities; set => _classPrimaryAbilities = value; }        
+        public EAbilitiesDTO[] ClassSavingProficiencies { get => _classSavingProficiencies; set => _classSavingProficiencies = value; }        
         public ESkillsDTO[] ClassProficientSkills { get => _classProficientSkills; set => _classProficientSkills = value; }
 
-        public string BackgroundName { get => _backgroundName; set => _backgroundName = value; }
+        
+        public string BackgroundName { get => _backgroundName; set => _backgroundName = value; }        
         public ESkillsDTO[] BackgroundProficientSkills { get => _backgroundProficientSkills; set => _backgroundProficientSkills = value; }
 
 

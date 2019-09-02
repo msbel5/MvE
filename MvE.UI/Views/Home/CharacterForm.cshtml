@@ -12,43 +12,43 @@
     <div class="row">
         <div class="col-xl-6">
             <label asp-for="CharName" class="control-label"></label>
-            <input asp-for="CharName" class="form-control" />
+            <input asp-for="CharName" class="form-control" required/>
             <span asp-validation-for="CharName" class="text-danger"></span>
         </div>
         <div class="form-group col-xl-6">
             <label asp-for="Alignment" class="control-label"></label>
-            @Html.DropDownListFor(m => m.Alignment, new SelectList(Model.Alignments), "Select Alignment", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Alignment, new SelectList(Model.Alignments), "Select Alignment", new { @class = "form-control" , required = "Select An Alignment" })
             <span asp-validation-for="Alignment" class="text-danger"></span>
         </div>
         <div class="row">
             <div class="form-group col-xl-2">
                 <label asp-for="BaseAbilityPoints_SDCIWC" class="control-label">Strength:</label>
-                <input asp-for="BaseAbilityPoints_SDCIWC[0]" class="form-control" />
+                <input asp-for="BaseAbilityPoints_SDCIWC[0]" class="form-control" required/>
                 <span asp-validation-for="BaseAbilityPoints_SDCIWC[0]" class="text-danger"></span>
             </div>
             <div class="form-group col-xl-2">
                 <label asp-for="BaseAbilityPoints_SDCIWC" class="control-label">Dexterity:</label>
-                <input asp-for="BaseAbilityPoints_SDCIWC[1]" class="form-control" />
+                <input asp-for="BaseAbilityPoints_SDCIWC[1]" class="form-control" required/>
                 <span asp-validation-for="BaseAbilityPoints_SDCIWC[1]" class="text-danger"></span>
             </div>
             <div class="form-group col-xl-2">
                 <label asp-for="BaseAbilityPoints_SDCIWC" class="control-label">Constitution:</label>
-                <input asp-for="BaseAbilityPoints_SDCIWC[2]" class="form-control" />
+                <input asp-for="BaseAbilityPoints_SDCIWC[2]" class="form-control" required/>
                 <span asp-validation-for="BaseAbilityPoints_SDCIWC[2]" class="text-danger"></span>
             </div>
             <div class="form-group col-xl-2">
                 <label asp-for="BaseAbilityPoints_SDCIWC" class="control-label">Intelligence:</label>
-                <input asp-for="BaseAbilityPoints_SDCIWC[3]" class="form-control" />
+                <input asp-for="BaseAbilityPoints_SDCIWC[3]" class="form-control" required/>
                 <span asp-validation-for="BaseAbilityPoints_SDCIWC[3]" class="text-danger"></span>
             </div>
             <div class="form-group col-xl-2">
                 <label asp-for="BaseAbilityPoints_SDCIWC" class="control-label">Wisdom:</label>
-                <input asp-for="BaseAbilityPoints_SDCIWC[4]" class="form-control" />
+                <input asp-for="BaseAbilityPoints_SDCIWC[4]" class="form-control" required/>
                 <span asp-validation-for="BaseAbilityPoints_SDCIWC[4]" class="text-danger"></span>
             </div>
             <div class="form-group col-xl-2">
                 <label asp-for="BaseAbilityPoints_SDCIWC" class="control-label">Charisma:</label>
-                <input asp-for="BaseAbilityPoints_SDCIWC[5]" class="form-control" />
+                <input asp-for="BaseAbilityPoints_SDCIWC[5]" class="form-control" required/>
                 <span asp-validation-for="BaseAbilityPoints_SDCIWC[5]" class="text-danger"></span>
             </div>
         </div>
@@ -59,21 +59,21 @@
             <h4 class="text-center pt-2">Race</h4>
             <div class="form-group">
                 <label asp-for="RaceName" class="control-label"></label>
-                <input asp-for="RaceName" class="form-control" />
+                <input asp-for="RaceName" class="form-control" required/>
                 <span asp-validation-for="RaceName" class="text-danger"></span>
             </div>
             <div class="row align-content-xl-center">
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label asp-for="RaceSize" class="control-label"></label>
-                        @Html.DropDownListFor(m => m.RaceSize, new SelectList(Model.Sizes), "Select Size", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.RaceSize, new SelectList(Model.Sizes), "Select Size", new { @class = "form-control", required = "Select Size" })
                         <span asp-validation-for="RaceSize" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label asp-for="RaceSpeed" class="control-label"></label>
-                        <input asp-for="RaceSpeed" class="form-control" />
+                        <input asp-for="RaceSpeed" class="form-control" required/>
                         <span asp-validation-for="RaceSpeed" class="text-danger"></span>
                     </div>
                 </div>
@@ -81,34 +81,34 @@
             <div class="row">
                 <div class="form-group col-xl-4">
                     <label asp-for="RaceAbilityBonuses_SDCIWC" class="control-label">Strength Race Bonus:</label>
-                    <input asp-for="RaceAbilityBonuses_SDCIWC[0]" class="form-control" />
+                    <input asp-for="RaceAbilityBonuses_SDCIWC[0]" class="form-control" required/>
                     <span asp-validation-for="RaceAbilityBonuses_SDCIWC[0]" class="text-danger"></span>
                 </div>
                 <div class="form-group col-xl-4">
                     <label asp-for="RaceAbilityBonuses_SDCIWC" class="control-label">Dexterity Race Bonus:</label>
-                    <input asp-for="RaceAbilityBonuses_SDCIWC[1]" class="form-control" />
+                    <input asp-for="RaceAbilityBonuses_SDCIWC[1]" class="form-control" required/>
                     <span asp-validation-for="RaceAbilityBonuses_SDCIWC[1]" class="text-danger"></span>
                 </div>
                 <div class="form-group col-xl-4">
                     <label asp-for="RaceAbilityBonuses_SDCIWC" class="control-label">Constitution Race Bonus:</label>
-                    <input asp-for="RaceAbilityBonuses_SDCIWC[2]" class="form-control" />
+                    <input asp-for="RaceAbilityBonuses_SDCIWC[2]" class="form-control" required/>
                     <span asp-validation-for="RaceAbilityBonuses_SDCIWC[2]" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-xl-4">
                     <label asp-for="RaceAbilityBonuses_SDCIWC" class="control-label">Intelligence Race Bonus:</label>
-                    <input asp-for="RaceAbilityBonuses_SDCIWC[3]" class="form-control" />
+                    <input asp-for="RaceAbilityBonuses_SDCIWC[3]" class="form-control" required/>
                     <span asp-validation-for="RaceAbilityBonuses_SDCIWC[3]" class="text-danger"></span>
                 </div>
                 <div class="form-group col-xl-4">
                     <label asp-for="RaceAbilityBonuses_SDCIWC" class="control-label">Wisdom Race Bonus:</label>
-                    <input asp-for="RaceAbilityBonuses_SDCIWC[4]" class="form-control" />
+                    <input asp-for="RaceAbilityBonuses_SDCIWC[4]" class="form-control" required/>
                     <span asp-validation-for="RaceAbilityBonuses_SDCIWC[4]" class="text-danger"></span>
                 </div>
                 <div class="form-group col-xl-4">
                     <label asp-for="RaceAbilityBonuses_SDCIWC" class="control-label">Charisma Race Bonus:</label>
-                    <input asp-for="RaceAbilityBonuses_SDCIWC[5]" class="form-control" />
+                    <input asp-for="RaceAbilityBonuses_SDCIWC[5]" class="form-control" required/>
                     <span asp-validation-for="RaceAbilityBonuses_SDCIWC[5]" class="text-danger"></span>
                 </div>
             </div>
@@ -118,27 +118,27 @@
             <h4 class="text-center pt-2">Class</h4>
             <div class="form-group">
                 <label asp-for="ClassName" class="control-label"></label>
-                <input asp-for="ClassName" class="form-control" />
+                <input asp-for="ClassName" class="form-control" required/>
                 <span asp-validation-for="ClassName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ClassHitDie" class="control-label"></label>
-                <input asp-for="ClassHitDie" class="form-control" />
+                <input asp-for="ClassHitDie" class="form-control" required/>
                 <span asp-validation-for="ClassHitDie" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ClassPrimaryAbilities" class="control-label"></label>
-                @Html.ListBoxFor(m => m.ClassPrimaryAbilities, new MultiSelectList(Model.Abilities), new { @class = "form-control" })
+                @Html.ListBoxFor(m => m.ClassPrimaryAbilities, new MultiSelectList(Model.Abilities), new { @class = "form-control", required = "Select Your Class's Primary Abilities" })
                 <span asp-validation-for="ClassPrimaryAbilities" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ClassSavingProficiencies" class="control-label"></label>
-                @Html.ListBoxFor(m => m.ClassSavingProficiencies, new MultiSelectList(Model.Abilities), new { @class = "form-control" })
+                @Html.ListBoxFor(m => m.ClassSavingProficiencies, new MultiSelectList(Model.Abilities), new { @class = "form-control",  required = "Select Your Class's Saving Proficiencies" })
                 <span asp-validation-for="ClassSavingProficiencies" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ClassProficientSkills" class="control-label"></label>
-                @Html.ListBoxFor(m => m.ClassProficientSkills, new MultiSelectList(Model.Skills), new { @class = "form-control" })
+                @Html.ListBoxFor(m => m.ClassProficientSkills, new MultiSelectList(Model.Skills), new { @class = "form-control", required = "Select Your Class's Proficient Skills" })
                 <span asp-validation-for="ClassProficientSkills" class="text-danger"></span>
             </div>
         </div>
@@ -147,12 +147,12 @@
             <h4 class="text-center pt-2">Background</h4>
             <div class="form-group">
                 <label asp-for="BackgroundName" class="control-label"></label>
-                <input asp-for="BackgroundName" class="form-control" />
+                <input asp-for="BackgroundName" class="form-control" required/>
                 <span asp-validation-for="BackgroundName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BackgroundProficientSkills" class="control-label"></label>
-                @Html.ListBoxFor(m => m.BackgroundProficientSkills, new MultiSelectList(Model.Skills), new { @class = "form-control" })
+                @Html.ListBoxFor(m => m.BackgroundProficientSkills, new MultiSelectList(Model.Skills), new { @class = "form-control", required = "Select Your Background's Proficient Skills" })
                 <span asp-validation-for="BackgroundProficientSkills" class="text-danger"></span>
             </div>
         </div>
